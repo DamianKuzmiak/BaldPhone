@@ -24,11 +24,9 @@ import android.widget.Scroller;
 
 import androidx.viewpager.widget.ViewPager;
 
-import com.duolingo.open.rtlviewpager.RtlViewPager;
-
 import java.lang.reflect.Field;
 
-public class NonSwipeableViewPager extends RtlViewPager {
+public class NonSwipeableViewPager extends ViewPager {
 
     public NonSwipeableViewPager(Context context) {
         super(context);

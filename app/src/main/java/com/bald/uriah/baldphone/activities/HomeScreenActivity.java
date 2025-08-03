@@ -219,11 +219,11 @@ public class HomeScreenActivity extends BaldActivity {
         }
 
         attachToXml();
-        lantern = new Lantern(this)
-                .observeLifecycle(this);
+        lantern = Lantern.getInstance();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            flashInited = lantern.initTorch();
+            lantern.init(this.getApplicationContext());
+            flashInited = true;  // TODO: swtich back to lantern:2.0.0
         }
 
         if (sharedPreferences.getBoolean(BPrefs.EMERGENCY_BUTTON_VISIBLE_KEY, BPrefs.EMERGENCY_BUTTON_VISIBLE_DEFAULT_VALUE))
@@ -322,9 +322,9 @@ public class HomeScreenActivity extends BaldActivity {
         if (flashInited) {
             flashButton.setOnClickListener((v) -> {
                 flashState = !flashState;
-                lantern.enableTorchMode(true);
+                lantern.turnOnFlashlight(this);
                 if (!flashState) // looks weird (it is) but necessary. otherwise it wont turn off after device rotation...
-                    lantern.enableTorchMode(false);
+                    lantern.turnOffFlashlight(this);
                 flashButton.setImageResource(flashState ?
                         R.drawable.flashlight_on_background :
                         R.drawable.flashlight_off_on_background);

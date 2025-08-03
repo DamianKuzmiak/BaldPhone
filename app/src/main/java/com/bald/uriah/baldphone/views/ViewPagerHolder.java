@@ -37,7 +37,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.bald.uriah.baldphone.R;
 import com.bald.uriah.baldphone.utils.BPrefs;
 import com.bald.uriah.baldphone.utils.D;
-import com.duolingo.open.rtlviewpager.RtlViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Locale;
@@ -97,7 +96,7 @@ public class ViewPagerHolder extends LinearLayout {
         of = String.valueOf(context.getText(R.string.of));
         this.setOrientation(VERTICAL);
 
-        viewPager = noArrows ? new RtlViewPager(context) : new NonSwipeableViewPager(context);
+        viewPager = noArrows ? new ViewPager(context) : new NonSwipeableViewPager(context);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
