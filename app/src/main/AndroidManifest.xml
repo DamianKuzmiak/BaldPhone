@@ -214,14 +214,6 @@
             android:name=".activities.CreditsActivity"
             android:enabled="${fullApp}" />
         <activity
-            android:name=".activities.YoutubeActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.VideoTutorialsActivity"
-
-            android:enabled="${fullApp}"
-            android:label="@string/video_tutorials" />
-        <activity
             android:name=".activities.CrashActivity"
             android:label="@string/crash" />
         <activity

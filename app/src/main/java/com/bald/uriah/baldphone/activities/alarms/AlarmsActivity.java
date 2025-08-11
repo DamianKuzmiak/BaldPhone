@@ -82,9 +82,6 @@ public class AlarmsActivity extends com.bald.uriah.baldphone.activities.BaldActi
         recyclerView.setAdapter(adapter);
 
         genOnClickListeners();
-
-        setupYoutube(5);
-
     }
 
     @Override

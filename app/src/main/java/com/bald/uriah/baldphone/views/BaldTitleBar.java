@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -28,12 +27,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
 import com.bald.uriah.baldphone.R;
 import com.bald.uriah.baldphone.utils.BPrefs;
-import com.bald.uriah.baldphone.utils.BaldToast;
 import com.bald.uriah.baldphone.utils.D;
 
 public class BaldTitleBar extends LinearLayout {
@@ -60,7 +57,6 @@ public class BaldTitleBar extends LinearLayout {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public BaldTitleBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
@@ -107,18 +103,15 @@ public class BaldTitleBar extends LinearLayout {
             removeAllViews();
         }
         bt_back.setOnClickListener(v -> {
-            if (context instanceof Activity)
-                ((Activity) context).finish();
-
+            if (context instanceof Activity activity)
+                activity.finish();
         });
 
-        bt_help.setOnClickListener(v -> BaldToast.from(context).setText(R.string.coming_soon).show());
         final boolean rightHanded = context.getSharedPreferences(D.BALD_PREFS, Context.MODE_PRIVATE).getBoolean(BPrefs.RIGHT_HANDED_KEY, BPrefs.RIGHT_HANDED_DEFAULT_VALUE);
         addView(rightHanded ? bt_help : bt_back);
         addView(tv_title);
         addView(rightHanded ? bt_back : bt_help);
         added = true;
-
     }
 
     public void setTitle(@StringRes int resId) {
@@ -138,15 +131,6 @@ public class BaldTitleBar extends LinearLayout {
      */
     public ImageView getBt_back() {
         return bt_back;
-    }
-
-    /**
-     * use with cation
-     *
-     * @return btHelp
-     */
-    public ImageView getBt_help() {
-        return bt_help;
     }
 
 }

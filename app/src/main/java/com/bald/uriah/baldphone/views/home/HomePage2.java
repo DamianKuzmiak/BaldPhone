@@ -33,7 +33,6 @@ import androidx.annotation.NonNull;
 import com.bald.uriah.baldphone.R;
 import com.bald.uriah.baldphone.activities.HomeScreenActivity;
 import com.bald.uriah.baldphone.activities.SettingsActivity;
-import com.bald.uriah.baldphone.activities.VideoTutorialsActivity;
 import com.bald.uriah.baldphone.utils.BaldToast;
 import com.bald.uriah.baldphone.utils.DropDownRecyclerViewAdapter;
 import com.bald.uriah.baldphone.utils.S;
@@ -75,8 +74,7 @@ public class HomePage2 extends HomeView {
         iv_maps = view.findViewById(R.id.iv_maps);
         tv_internet = view.findViewById(R.id.tv_internet);
         tv_maps = view.findViewById(R.id.tv_maps);
-        bt_help = view.findViewById(R.id.bt_help);
-
+//        bt_help = view.findViewById(R.id.bt_help);
     }
 
     private void genOnLongClickListeners() {
@@ -85,10 +83,6 @@ public class HomePage2 extends HomeView {
 
         clickListenerForAbstractOpener(Uri.parse("http://www.google.com"), bt_internet, iv_internet, tv_internet);
         clickListenerForAbstractOpener(Uri.parse("geo:0,0"), bt_maps, iv_maps, tv_maps);
-
-        bt_help.setOnClickListener(v ->
-                homeScreen.startActivity(new Intent(getContext(), VideoTutorialsActivity.class)));
-
     }
 
     private void clickListenerForAbstractOpener(@NonNull final Uri uri, @NonNull final View bt, @NonNull final ImageView iv, @NonNull final TextView tv) {

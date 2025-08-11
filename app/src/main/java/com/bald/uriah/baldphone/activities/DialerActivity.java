@@ -152,7 +152,6 @@ public class DialerActivity extends BaldActivity {
             dtmfGenerator = new ToneGenerator(STREAM_SYSTEM, TONE_VOLUME);
         attachXml();
         setOnClickListeners();
-        setupYoutube(2);
         searchForContact();
     }
 

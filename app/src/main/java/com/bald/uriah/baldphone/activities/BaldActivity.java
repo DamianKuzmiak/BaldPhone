@@ -30,7 +30,6 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
@@ -47,7 +46,6 @@ import com.bald.uriah.baldphone.utils.BDialog;
 import com.bald.uriah.baldphone.utils.BPrefs;
 import com.bald.uriah.baldphone.utils.D;
 import com.bald.uriah.baldphone.utils.S;
-import com.bald.uriah.baldphone.views.BaldTitleBar;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -334,25 +332,6 @@ public abstract class BaldActivity extends AppCompatActivity implements SensorEv
     }
 
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
-
-    /**
-     * be sure {@link #setContentView(int)} was called, and the rootview contains a {@link BaldTitleBar} whose id is R.id.bald_title_bar.
-     *
-     * @param index the youtube video index. see
-     */
-    protected void setupYoutube(int index) {
-        final View baldTitleBar = findViewById(R.id.bald_title_bar);
-        if (baldTitleBar instanceof BaldTitleBar) {
-            ((BaldTitleBar) baldTitleBar).getBt_help()
-                    .setOnClickListener(
-                            (v) -> startActivity(
-                                    new Intent(this, YoutubeActivity.class)
-                                            .putExtra(YoutubeActivity.EXTRA_ID, index)
-                            )
-                    );
-        }
-
     }
 
     protected abstract int requiredPermissions();

@@ -68,7 +68,6 @@ public class SOSActivity extends BaldActivity {
         setContentView(R.layout.activity_sos);
         ec = new BaldLinearLayoutButton[]{findViewById(R.id.ec1), findViewById(R.id.ec2)};
         ecReal = findViewById(R.id.ec_real);
-        setupYoutube(4);
     }
 
     @Override

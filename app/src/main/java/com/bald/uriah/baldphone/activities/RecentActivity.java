@@ -44,8 +44,6 @@ public class RecentActivity extends BaldActivity {
         final CallsRecyclerViewAdapter callsRecyclerViewAdapter = new CallsRecyclerViewAdapter(CallLogsHelper.getAllCalls(getContentResolver()), this);
         CallLogsHelper.markAllAsRead(getContentResolver());
         recyclerView.setAdapter(callsRecyclerViewAdapter);
-
-        setupYoutube(3);
     }
 
     @Override

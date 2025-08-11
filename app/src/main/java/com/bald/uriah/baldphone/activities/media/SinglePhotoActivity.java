@@ -47,7 +47,6 @@ public class SinglePhotoActivity extends SingleMediaActivity implements Constant
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupYoutube(8);
     }
 
     @Override
