@@ -16,6 +16,8 @@
 
 package com.bald.uriah.baldphone.views.home;
 
+import static android.os.Build.VERSION_CODES;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -31,8 +33,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.bald.uriah.baldphone.R;
+import com.bald.uriah.baldphone.activities.AppsActivity;
 import com.bald.uriah.baldphone.activities.HomeScreenActivity;
 import com.bald.uriah.baldphone.activities.SettingsActivity;
+import com.bald.uriah.baldphone.activities.alarms.AlarmsActivity;
+import com.bald.uriah.baldphone.activities.media.VideosActivity;
+import com.bald.uriah.baldphone.activities.pills.PillsActivity;
 import com.bald.uriah.baldphone.utils.BaldToast;
 import com.bald.uriah.baldphone.utils.DropDownRecyclerViewAdapter;
 import com.bald.uriah.baldphone.utils.S;
@@ -43,14 +49,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static android.os.Build.VERSION_CODES;
-
 public class HomePage2 extends HomeView {
     public static final String TAG = HomePage2.class.getSimpleName();
     private View view;
     private ImageView iv_internet, iv_maps;
     private TextView tv_internet, tv_maps;
     private View bt_settings, bt_internet, bt_maps, bt_help;
+    private View bt_new_1, bt_new_2, bt_new_3, bt_clock2; // Added fields
     private PackageManager packageManager;
 
     public HomePage2(@NonNull HomeScreenActivity homeScreen) {
@@ -74,34 +79,67 @@ public class HomePage2 extends HomeView {
         iv_maps = view.findViewById(R.id.iv_maps);
         tv_internet = view.findViewById(R.id.tv_internet);
         tv_maps = view.findViewById(R.id.tv_maps);
-//        bt_help = view.findViewById(R.id.bt_help);
+        bt_help = view.findViewById(R.id.bt_help);
+        bt_new_1 = view.findViewById(R.id.bt_new_1);
+        bt_new_2 = view.findViewById(R.id.bt_new_2);
+        bt_new_3 = view.findViewById(R.id.bt_new_3);
+        bt_clock2 = view.findViewById(R.id.bt_clock2);
     }
 
     private void genOnLongClickListeners() {
-        bt_settings.setOnClickListener(v ->
-                homeScreen.startActivity(new Intent(getContext(), SettingsActivity.class)));
+        bt_settings.setOnClickListener(
+                v -> homeScreen.startActivity(new Intent(getContext(), SettingsActivity.class)));
 
-        clickListenerForAbstractOpener(Uri.parse("http://www.google.com"), bt_internet, iv_internet, tv_internet);
+        clickListenerForAbstractOpener(
+                Uri.parse("http://www.google.com"), bt_internet, iv_internet, tv_internet);
         clickListenerForAbstractOpener(Uri.parse("geo:0,0"), bt_maps, iv_maps, tv_maps);
+
+        if (bt_new_1 != null) {
+            bt_new_1.setOnClickListener(
+                    v -> homeScreen.startActivity(new Intent(getContext(), VideosActivity.class)));
+        }
+
+        if (bt_new_2 != null) {
+            bt_new_2.setOnClickListener(
+                    v -> homeScreen.startActivity(new Intent(getContext(), PillsActivity.class)));
+        }
+
+        if (bt_new_3 != null) {
+            bt_new_3.setOnClickListener(
+                    v -> {
+                        if (!homeScreen.finishedUpdatingApps) {
+                            homeScreen.launchAppsActivity = true;
+                        } else {
+                            homeScreen.startActivity(new Intent(getContext(), AppsActivity.class));
+                        }
+                    });
+        }
+
+        if (bt_clock2 != null) {
+            bt_clock2.setOnClickListener(
+                    v -> homeScreen.startActivity(new Intent(homeScreen, AlarmsActivity.class)));
+        }
     }
 
-    private void clickListenerForAbstractOpener(@NonNull final Uri uri, @NonNull final View bt, @NonNull final ImageView iv, @NonNull final TextView tv) {
+    private void clickListenerForAbstractOpener(
+            @NonNull final Uri uri,
+            @NonNull final View bt,
+            @NonNull final ImageView iv,
+            @NonNull final TextView tv) {
         final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        final List<ResolveInfo> resolveInfosWithDups =
+        final List<ResolveInfo> activitiesWithDuplicates =
                 packageManager.queryIntentActivities(
                         intent,
-                        VERSION.SDK_INT >= VERSION_CODES.M ?
-                                PackageManager.MATCH_ALL : PackageManager.MATCH_DEFAULT_ONLY);
+                        VERSION.SDK_INT >= VERSION_CODES.M
+                                ? PackageManager.MATCH_ALL
+                                : PackageManager.MATCH_DEFAULT_ONLY);
 
-        //Removing dups
-        final Set<String> packagesSet = new HashSet<>();
-        for (final ResolveInfo resolveInfo : resolveInfosWithDups)
-            packagesSet.add(resolveInfo.activityInfo.applicationInfo.packageName);
-        final List<ResolveInfo> resolveInfos = new ArrayList<>(packagesSet.size());
-        for (final ResolveInfo resolveInfo : resolveInfosWithDups) {
+        // Remove duplicates
+        final List<ResolveInfo> resolveInfos = new ArrayList<>();
+        final Set<String> seenPackages = new HashSet<>();
+        for (final ResolveInfo resolveInfo : activitiesWithDuplicates) {
             final String packageName = resolveInfo.activityInfo.applicationInfo.packageName;
-            if (packagesSet.contains(packageName)) {
-                packagesSet.remove(packageName);
+            if (seenPackages.add(packageName)) { // Set.add() returns true if the element was new
                 resolveInfos.add(resolveInfo);
             }
         }
@@ -112,17 +150,12 @@ public class HomePage2 extends HomeView {
                     getWidth(),
                     new DropDownRecyclerViewAdapter.DropDownListener() {
                         @Override
-                        public void onUpdate(DropDownRecyclerViewAdapter.ViewHolder viewHolder, int position, PopupWindow popupWindow) {
+                        public void onUpdate(
+                                DropDownRecyclerViewAdapter.ViewHolder viewHolder,
+                                int position,
+                                PopupWindow popupWindow) {
                             final ResolveInfo resolveInfo = resolveInfos.get(position);
-                            if (S.isValidContextForGlide(viewHolder.pic.getContext()))
-                                Glide.with(viewHolder.pic)
-                                        .load(resolveInfo.loadIcon(packageManager))
-                                        .into(viewHolder.pic);
-                            viewHolder.text.setText(resolveInfo.loadLabel(packageManager));
-                            viewHolder.itemView.setOnClickListener(v1 -> {
-                                homeScreen.startActivity(packageManager.getLaunchIntentForPackage(resolveInfo.activityInfo.applicationInfo.packageName));
-                                popupWindow.dismiss();
-                            });
+                            setupAppDropdownItem(viewHolder, resolveInfo, popupWindow);
                         }
 
                         @Override
@@ -130,22 +163,50 @@ public class HomePage2 extends HomeView {
                             return resolveInfos.size();
                         }
 
-                    }, bt));
+                    },
+                    bt));
         } else if (resolveInfos.size() == 1) {
             final ResolveInfo resolveInfo = resolveInfos.get(0);
-            if (S.isValidContextForGlide(iv.getContext()))
-                Glide.with(iv)
-                        .load(resolveInfo.loadIcon(packageManager))
-                        .into(iv);
+            if (S.isValidContextForGlide(iv.getContext())) {
+                Glide.with(iv).load(resolveInfo.loadIcon(packageManager)).into(iv);
+            }
             tv.setText(resolveInfo.loadLabel(packageManager));
-            bt.setOnClickListener(v1 -> homeScreen.startActivity(packageManager.getLaunchIntentForPackage(resolveInfo.activityInfo.applicationInfo.packageName)));
+            bt.setOnClickListener(v1 ->
+                    homeScreen.startActivity(
+                            packageManager.getLaunchIntentForPackage(
+                                    resolveInfo.activityInfo.applicationInfo.packageName)));
         } else {
             bt.setOnClickListener(this::showErrorMessage);
         }
     }
 
-    private void showErrorMessage(View v) {
-        BaldToast.from(v.getContext()).setType(BaldToast.TYPE_ERROR).setText(R.string.no_app_was_found).show();
+    private void setupAppDropdownItem(
+            DropDownRecyclerViewAdapter.ViewHolder viewHolder,
+            final ResolveInfo resolveInfo,
+            final PopupWindow popupWindow) {
+        if (S.isValidContextForGlide(viewHolder.pic.getContext())) {
+            Glide.with(viewHolder.pic)
+                    .load(resolveInfo.loadIcon(packageManager))
+                    .into(viewHolder.pic);
+        }
+        viewHolder.text.setText(resolveInfo.loadLabel(packageManager));
+        viewHolder.itemView.setOnClickListener(
+                v1 -> {
+                    homeScreen.startActivity(
+                            packageManager
+                                    .getLaunchIntentForPackage(
+                                            resolveInfo
+                                                    .activityInfo
+                                                    .applicationInfo
+                                                    .packageName));
+                    popupWindow.dismiss();
+                });
     }
 
+    private void showErrorMessage(View v) {
+        BaldToast.from(v.getContext())
+                .setType(BaldToast.TYPE_ERROR)
+                .setText(R.string.no_app_was_found)
+                .show();
+    }
 }

@@ -191,49 +191,4 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="0.07" />
-
-    <LinearLayout
-        android:id="@+id/time_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/home_item_4"
-        android:orientation="horizontal"
-        android:padding="0dp"
-        tools:ignore="RtlHardcoded">
-
-        <com.bald.uriah.baldphone.views.FirstPageAppIcon
-            android:id="@+id/bt_reminders"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/style_for_buttons_transparent"
-            android:visibility="visible"
-            app:__src="@drawable/pill"
-            app:__text="@string/pills" />
-
-        <include layout="@layout/ll_divider_as_horizontal_layout" />
-
-        <com.bald.uriah.baldphone.views.FirstPageAppIcon
-            android:id="@+id/bt_apps"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/style_for_buttons_transparent"
-            android:visibility="visible"
-            app:__src="@drawable/apps_on_background"
-            app:__text="@string/apps" />
-
-        <include layout="@layout/ll_divider_as_horizontal_layout" />
-
-        <com.bald.uriah.baldphone.views.FirstPageAppIcon
-            android:id="@+id/bt_clock"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/style_for_buttons_transparent"
-            android:visibility="visible"
-            app:__src="@drawable/clock_on_background"
-            app:__text="@string/alarms" />
-    </LinearLayout>
 </LinearLayout>
