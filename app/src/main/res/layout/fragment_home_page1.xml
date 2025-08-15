@@ -176,14 +176,14 @@
         <include layout="@layout/ll_divider_as_horizontal_layout" />
 
         <com.bald.uriah.baldphone.views.FirstPageAppIcon
-            android:id="@+id/bt_videos"
+            android:id="@+id/bt_lock_screen"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/style_for_buttons_transparent"
             android:visibility="visible"
-            app:__src="@drawable/movie_on_background"
-            app:__text="@string/videos" />
+            app:__src="@drawable/icon_lock_outline"
+            app:__text="@string/label_lock_screen_short" />
 
     </LinearLayout>
 

@@ -20,6 +20,8 @@ import static com.bald.uriah.baldphone.databases.apps.AppsDatabaseHelper.baldCom
 import static com.bald.uriah.baldphone.services.NotificationListenerService.ACTION_REGISTER_ACTIVITY;
 import static com.bald.uriah.baldphone.services.NotificationListenerService.KEY_EXTRA_ACTIVITY;
 import static com.bald.uriah.baldphone.services.NotificationListenerService.NOTIFICATIONS_HOME_SCREEN;
+import static com.bald.uriah.baldphone.utils.AccessibilityUtils.isAccessibilityServiceEnabled;
+import static com.bald.uriah.baldphone.utils.AccessibilityUtils.showAccessibilityServiceDialog;
 import static com.bald.uriah.baldphone.utils.D.WHATSAPP_PACKAGE_NAME;
 
 import android.app.Activity;
@@ -34,6 +36,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.provider.Telephony;
 import android.util.ArrayMap;
@@ -60,6 +63,7 @@ import com.bald.uriah.baldphone.databases.apps.App;
 import com.bald.uriah.baldphone.databases.apps.AppsDatabase;
 import com.bald.uriah.baldphone.databases.apps.AppsDatabaseHelper;
 import com.bald.uriah.baldphone.databases.calls.CallLogsHelper;
+import com.bald.uriah.baldphone.services.DeviceLockService;
 import com.bald.uriah.baldphone.services.NotificationListenerService;
 import com.bald.uriah.baldphone.utils.BDB;
 import com.bald.uriah.baldphone.utils.BDialog;
@@ -89,7 +93,7 @@ public class HomePage1 extends HomeView {
             bt_messages,
             bt_photos,
             bt_camera,
-            bt_videos;
+            bt_lock_screen;
     private boolean registered = false;
     private SharedPreferences sharedPreferences;
 
@@ -223,7 +227,7 @@ public class HomePage1 extends HomeView {
         bt_messages = view.findViewById(R.id.bt_messages);
         bt_photos = view.findViewById(R.id.bt_photos);
         bt_recent = view.findViewById(R.id.bt_recent);
-        bt_videos = view.findViewById(R.id.bt_videos);
+        bt_lock_screen = view.findViewById(R.id.bt_lock_screen);
         bt_whatsapp = view.findViewById(R.id.bt_whatsapp);
     }
 
@@ -339,8 +343,39 @@ public class HomePage1 extends HomeView {
                 v -> homeScreen.startActivity(getCameraIntent()));
         setupButton(
                 BPrefs.CUSTOM_VIDEOS_KEY,
-                bt_videos,
-                v -> homeScreen.startActivity(new Intent(homeScreen, VideosActivity.class)));
+                bt_lock_screen,
+                v -> {
+                    // Support for API levels below 28 is not currently implemented or planned
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+                        BaldToast.from(homeScreen)
+                                .setType(BaldToast.TYPE_DEFAULT)
+                                .setText(R.string.info_lock_screen_min_sdk)
+                                .show();
+                        return;
+                    }
+
+                    if (!isAccessibilityServiceEnabled(homeScreen, DeviceLockService.class)) {
+                        showAccessibilityServiceDialog(homeScreen);
+                        return;
+                    }
+
+                    DeviceLockService service = DeviceLockService.getInstance();
+                    if (service != null) {
+                        boolean locked = service.lockScreen();
+                        if (!locked) {
+                            BaldToast.from(homeScreen)
+                                    .setType(BaldToast.TYPE_ERROR)
+                                    .setText("Action failed")
+                                    .show();
+                        }
+                    } else {
+                        BaldToast.from(homeScreen)
+                                .setType(BaldToast.TYPE_ERROR)
+                                .setText("Accessibility Service is not available")
+                                .show();
+                    }
+                });
+
         // Removed: setupButton(BPrefs.CUSTOM_APPS_KEY, bt_apps, v -> {
         // if (!homeScreen.finishedUpdatingApps)
         // homeScreen.launchAppsActivity = true;

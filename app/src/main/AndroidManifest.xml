@@ -40,7 +40,6 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
-
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -57,7 +56,6 @@
         android:theme="@style/bald_light"
         tools:ignore="UnusedAttribute">
 
-
         <activity
             android:name=".activities.HomeScreenActivity"
             android:enabled="${fullApp}"
@@ -73,7 +71,6 @@
         </activity>
         <activity
             android:name=".activities.DialerActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/dialer">
             <intent-filter>
@@ -82,24 +79,20 @@
         </activity>
         <activity
             android:name=".activities.alarms.AlarmsActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/alarms" />
         <activity
             android:name=".activities.alarms.AlarmScreenActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/alarm"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.alarms.AddAlarmActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/add_alarm"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.contacts.ContactsActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/contacts"
             android:windowSoftInputMode="adjustResize" />
@@ -108,29 +101,23 @@
             android:enabled="${fullApp}" />
         <activity
             android:name=".activities.media.SingleVideoActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/video" />
         <activity
             android:name=".activities.TutorialActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/video_tutorials"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SOSActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/sos" />
-
         <activity
             android:name=".activities.SettingsActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/settings" />
         <activity
             android:name=".activities.NotificationsActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/notifications" />
         <activity
@@ -150,12 +137,10 @@
             android:label="@string/recent"></activity>
         <activity
             android:name=".activities.media.PhotosActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/photos" />
         <activity
             android:name=".activities.media.VideosActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/videos">
             <intent-filter>
@@ -172,42 +157,34 @@
             android:enabled="${fullApp}" />
         <activity
             android:name=".activities.alarms.AddTimerActivity"
-
             android:enabled="${fullApp}"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.AppsActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/apps" />
         <activity
             android:name=".activities.pills.PillsActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/pills" />
         <activity
             android:name=".activities.pills.AddPillActivity"
-
             android:enabled="${fullApp}"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.pills.PillScreenActivity"
-
             android:enabled="${fullApp}"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FontChangerActivity"
-
             android:enabled="${fullApp}"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.AccessibilityLevelChangerActivity"
-
             android:enabled="${fullApp}"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.contacts.ShareActivity"
-
             android:enabled="${fullApp}"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -224,18 +201,15 @@
             android:enabled="${fullApp}" />
         <activity
             android:name=".activities.PhoneActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/phone">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.TechnicalInfoActivity"
-
             android:enabled="${fullApp}"
             android:screenOrientation="portrait" />
         <activity
@@ -246,10 +220,8 @@
             android:enabled="${fullApp}" />
         <activity
             android:name=".activities.Page1EditorActivity"
-
             android:enabled="${fullApp}"
             android:label="@string/edit_home_screen" />
-
 
         <service
             android:name=".keyboard.BaldInputMethodService"
@@ -272,6 +244,18 @@
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
+        </service>
+        <service
+            android:name=".services.DeviceLockService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:label="@string/accessibility_service_label"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
         </service>
 
 
@@ -305,7 +289,6 @@
             </intent-filter>
         </receiver>
 
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -316,6 +299,5 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
     </application>
 </manifest>

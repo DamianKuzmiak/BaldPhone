@@ -69,7 +69,7 @@ public class BaldPhone extends Application {
         builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
                 .setUri(getString(R.string.tt_url))
                 .setHttpMethod(HttpSender.Method.POST)
-                .setEnabled(true);
+                .setEnabled(false);
         ACRA.init(this, builder);
 
         Thread.setDefaultUncaughtExceptionHandler(
