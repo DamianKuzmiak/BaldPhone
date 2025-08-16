@@ -186,7 +186,8 @@ public class HomeScreenActivity extends BaldActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        S.logImportant("HomeScreenActivity was started!");
+        Log.d(TAG, "onCreate");
+
         sharedPreferences = BPrefs.get(this);
 
         if (!sharedPreferences.getBoolean(BPrefs.AFTER_TUTORIAL_KEY, false) && !testing) {
@@ -197,10 +198,9 @@ public class HomeScreenActivity extends BaldActivity {
         try {
             startService(new Intent(this, NotificationListenerService.class));
         } catch (Exception e) {
-            Log.e(TAG, S.str(e.getMessage()));
-            e.printStackTrace();
-            BaldToast.from(this).setType(BaldToast.TYPE_ERROR).setText("Could not start Notification Listener Service!").show();
+            Log.e(TAG, "Could not start Notification Listener Service!", e);
         }
+
         new UpdateApps(this).execute(this.getApplicationContext());
         lowBatteryAlert = sharedPreferences.getBoolean(BPrefs.LOW_BATTERY_ALERT_KEY, BPrefs.LOW_BATTERY_ALERT_DEFAULT_VALUE);
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
@@ -218,21 +218,20 @@ public class HomeScreenActivity extends BaldActivity {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
-        attachToXml();
+        setContentView(R.layout.home_screen);
+        viewPagerHolder = findViewById(R.id.view_pager_holder);
+        final ViewGroup top_bar = findViewById(R.id.top_bar);
+        soundButton = top_bar.findViewById(R.id.sound);
+        batteryView = top_bar.findViewById(R.id.battery);
+        notificationsButton = top_bar.findViewById(R.id.notifications);
+        flashButton = top_bar.findViewById(R.id.flash);
+
         lantern = Lantern.getInstance();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             lantern.init(this.getApplicationContext());
             flashInited = true;  // TODO: swtich back to lantern:2.0.0
         }
-
-//        if (sharedPreferences.getBoolean(BPrefs.EMERGENCY_BUTTON_VISIBLE_KEY, BPrefs.EMERGENCY_BUTTON_VISIBLE_DEFAULT_VALUE))
-//            sosButton.setOnClickListener((v) -> {
-//                startActivity(new Intent(this, SOSActivity.class));
-//                overridePendingTransition(R.anim.slide_in_down, R.anim.nothing);
-//            });
-//        else
-//            sosButton.setVisibility(View.GONE);
 
         notificationsButton.setOnClickListener((v) -> {
             startActivity(new Intent(this, NotificationsActivity.class));
@@ -305,7 +304,6 @@ public class HomeScreenActivity extends BaldActivity {
                         }
                 }
         }
-
     }
 
     /* the security exception will happen only after api 23 so Lint please shush*/
@@ -402,24 +400,7 @@ public class HomeScreenActivity extends BaldActivity {
     private void updateViewPager() {
         baldPagerAdapter.obtainAppList();
         viewPagerHolder.setCurrentItem(baldPagerAdapter.startingPage);
-        viewPagerHolder.notifyDataChanegd();
-    }
-
-    private void attachToXml() {
-        setContentView(R.layout.home_screen);
-        viewPagerHolder = findViewById(R.id.view_pager_holder);
-
-        final ViewGroup top_bar = findViewById(R.id.top_bar);
-        int tmpPadding = Math.min(screenSize.x, screenSize.y) / 45;
-        for (int i = 0; i < top_bar.getChildCount(); i++) {
-            top_bar.getChildAt(i).setPadding(tmpPadding, tmpPadding, tmpPadding, tmpPadding);
-        }
-
-//        sosButton = top_bar.findViewById(R.id.sos);
-        soundButton = top_bar.findViewById(R.id.sound);
-        batteryView = top_bar.findViewById(R.id.battery);
-        notificationsButton = top_bar.findViewById(R.id.notifications);
-        flashButton = top_bar.findViewById(R.id.flash);
+        viewPagerHolder.onDataChanged();
     }
 
     @Override

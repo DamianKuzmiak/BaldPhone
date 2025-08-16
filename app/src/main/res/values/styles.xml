@@ -29,7 +29,6 @@
         <item name="colorAccent">#fff</item>
     </style>
 
-
     <style name="bald_light" parent="Theme.AppCompat.Light.NoActionBar.FullScreen">
         <item name="bald_key_margin">@dimen/bald_key_margin</item>
         <item name="bald_background">@color/bald_background_light</item>
@@ -56,6 +55,8 @@
         <item name="bald_text_on_background">@color/bald_text_on_background_light</item>
         <item name="bald_text_on_button">@color/bald_text_on_button_light</item>
         <item name="bald_text_on_key">@color/bald_text_on_key_light</item>
+
+        <item name="colorControlHighlight">@color/ripple_light</item>
     </style>
 
     <!--Another Theme to add in the future, right now it looks bad.-->
@@ -84,7 +85,6 @@
         <item name="bald_text_on_key">@color/bald_text_on_key_skin</item>
     </style>
 
-
     <style name="bald_dark" parent="Theme.AppCompat.Light.NoActionBar.FullScreen">
         <item name="bald_key_margin">@dimen/bald_key_margin</item>
         <item name="bald_background">@color/bald_background_dark</item>
@@ -111,6 +111,8 @@
         <item name="bald_text_on_background">@color/bald_text_on_background_dark</item>
         <item name="bald_text_on_button">@color/bald_text_on_button_dark</item>
         <item name="bald_text_on_key">@color/bald_text_on_key_dark</item>
+
+        <item name="colorControlHighlight">@color/ripple_dark</item>
     </style>
 
 
@@ -130,6 +132,10 @@
 
     <style name="BackgroundText.Medium">
         <item name="android:textSize">@dimen/medium</item>
+    </style>
+
+    <style name="BackgroundText.Medium.Plus">
+        <item name="android:textSize">@dimen/medium_plus</item>
     </style>
 
     <style name="BackgroundText.Large">
@@ -177,4 +183,27 @@
     <style name="BaldActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">?attr/bald_background</item>
     </style>
+
+    <style name="HomeButtonTile">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@drawable/bg_tile_default</item>
+        <item name="android:foreground">@drawable/fg_home_button</item>
+    </style>
+
+    <style name="HomeButtonTile.AccentGreen" parent="HomeButtonTile">
+        <item name="android:background">@drawable/bg_tile_green_gradient</item>
+    </style>
+
+    <style name="HomeButtonTile.AccentBlue" parent="HomeButtonTile">
+        <item name="android:background">@drawable/bg_tile_blue_gradient</item>
+    </style>
+
+    <style name="HomeButtonTile.AccentPurple" parent="HomeButtonTile">
+        <item name="android:background">@drawable/bg_tile_purple_gradient</item>
+    </style>
+
 </resources>

@@ -17,6 +17,7 @@
 <resources>
     <dimen name="huge">28sp</dimen>
     <dimen name="large">21sp</dimen>
+    <dimen name="medium_plus">19sp</dimen>
     <dimen name="medium">17sp</dimen>
     <dimen name="small">13sp</dimen>
     <dimen name="tiny">8sp</dimen>

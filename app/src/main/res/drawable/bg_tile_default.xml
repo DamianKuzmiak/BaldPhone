@@ -1,0 +1,34 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Shadow Layer -->
+    <!-- This item is drawn first (at the bottom of the Z-order) -->
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Shadow color: semi-transparent black. Adjust alpha (first two hex digits) for intensity. -->
+            <!-- #40000000 is ~25% opacity black. You can use a darker shade of your app's gray too. -->
+            <solid android:color="#40000000" />
+            <!-- Shadow corners should match the main content's corners -->
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+
+    <!-- Main Content Layer -->
+    <!-- This item is drawn on top of the shadow layer. -->
+    <!-- Offsets are used to make the shadow layer peek out from underneath. -->
+    <item
+        android:bottom="2dp"
+        android:left="0dp"
+        android:right="2dp"
+        android:top="0dp">
+        <shape android:shape="rectangle">
+            <solid android:color="?bald_button" />
+            <corners android:radius="20dp" />
+            <padding
+                android:bottom="8dp"
+                android:left="8dp"
+                android:right="8dp"
+                android:top="8dp" />
+        </shape>
+    </item>
+
+</layer-list>

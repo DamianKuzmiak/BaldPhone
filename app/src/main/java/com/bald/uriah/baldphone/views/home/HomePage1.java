@@ -16,7 +16,6 @@
 
 package com.bald.uriah.baldphone.views.home;
 
-import static com.bald.uriah.baldphone.databases.apps.AppsDatabaseHelper.baldComponentNameBeginning;
 import static com.bald.uriah.baldphone.services.NotificationListenerService.ACTION_REGISTER_ACTIVITY;
 import static com.bald.uriah.baldphone.services.NotificationListenerService.KEY_EXTRA_ACTIVITY;
 import static com.bald.uriah.baldphone.services.NotificationListenerService.NOTIFICATIONS_HOME_SCREEN;
@@ -34,7 +33,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -49,7 +47,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.bald.uriah.baldphone.BuildConfig;
 import com.bald.uriah.baldphone.R;
 import com.bald.uriah.baldphone.activities.AppsActivity;
 import com.bald.uriah.baldphone.activities.DialerActivity;
@@ -82,8 +79,8 @@ public class HomePage1 extends HomeView {
     public static final String TAG = HomePage1.class.getSimpleName();
     private static final ComponentName WHATSAPP_COMPONENT_NAME =
             new ComponentName(WHATSAPP_PACKAGE_NAME, D.WHATSAPP_LAUNCH_ACTIVITY);
-    public Map<App, FirstPageAppIcon> viewsToApps;
-    private View view;
+
+    private Map<App, FirstPageAppIcon> viewsToApps;
     private FirstPageAppIcon bt_assistant,
             bt_camera,
             bt_contacts,
@@ -93,7 +90,6 @@ public class HomePage1 extends HomeView {
             bt_messages,
             bt_recent,
             bt_whatsapp;
-    private boolean registered = false;
     private SharedPreferences sharedPreferences;
 
     public HomePage1(@NonNull Context context) {
@@ -103,6 +99,7 @@ public class HomePage1 extends HomeView {
         sharedPreferences = BPrefs.get(activity);
     }
 
+    @SuppressWarnings("unused")
     public HomePage1(@NonNull Context context, AttributeSet attributeSet) {
         this(context);
     }
@@ -182,52 +179,45 @@ public class HomePage1 extends HomeView {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container) {
+        View view = inflater.inflate(R.layout.fragment_home_page1, container, false);
         viewsToApps = new ArrayMap<>();
-        view = inflater.inflate(R.layout.fragment_home_page1, container, false);
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-            view.findViewById(R.id.clock).setVisibility(View.GONE);
 
-        attachXml();
+        initViews(view);
+
         setupOnClickListeners();
         return view;
+    }
+
+    private void initViews(View rootView) {
+        bt_assistant = rootView.findViewById(R.id.bt_assistant);
+        bt_camera = rootView.findViewById(R.id.bt_camera);
+        bt_contacts = rootView.findViewById(R.id.bt_contacts);
+        bt_dialer = rootView.findViewById(R.id.bt_dialer);
+        bt_emergency = rootView.findViewById(R.id.bt_emergency);
+        bt_lock_screen = rootView.findViewById(R.id.bt_lock_screen);
+        bt_messages = rootView.findViewById(R.id.bt_messages);
+        bt_recent = rootView.findViewById(R.id.bt_recent);
+        bt_whatsapp = rootView.findViewById(R.id.bt_whatsapp);
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        if (!registered) {
-            LocalBroadcastManager.getInstance(activity)
-                    .registerReceiver(
-                            notificationReceiver,
-                            new IntentFilter(
-                                    NotificationListenerService.HOME_SCREEN_ACTIVITY_BROADCAST));
-            registered = true;
-            LocalBroadcastManager.getInstance(activity)
-                    .sendBroadcast(
-                            new Intent(ACTION_REGISTER_ACTIVITY)
-                                    .putExtra(KEY_EXTRA_ACTIVITY, NOTIFICATIONS_HOME_SCREEN));
-        }
+        LocalBroadcastManager.getInstance(activity)
+                .registerReceiver(
+                        notificationReceiver,
+                        new IntentFilter(
+                                NotificationListenerService.HOME_SCREEN_ACTIVITY_BROADCAST));
+        LocalBroadcastManager.getInstance(activity)
+                .sendBroadcast(
+                        new Intent(ACTION_REGISTER_ACTIVITY)
+                                .putExtra(KEY_EXTRA_ACTIVITY, NOTIFICATIONS_HOME_SCREEN));
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (registered) {
-            LocalBroadcastManager.getInstance(activity).unregisterReceiver(notificationReceiver);
-            registered = false;
-        }
-    }
-
-    private void attachXml() {
-        bt_assistant = view.findViewById(R.id.bt_assistant);
-        bt_camera = view.findViewById(R.id.bt_camera);
-        bt_contacts = view.findViewById(R.id.bt_contacts);
-        bt_dialer = view.findViewById(R.id.bt_dialer);
-        bt_emergency = view.findViewById(R.id.bt_emergency);
-        bt_lock_screen = view.findViewById(R.id.bt_lock_screen);
-        bt_messages = view.findViewById(R.id.bt_messages);
-        bt_recent = view.findViewById(R.id.bt_recent);
-        bt_whatsapp = view.findViewById(R.id.bt_whatsapp);
+        LocalBroadcastManager.getInstance(activity).unregisterReceiver(notificationReceiver);
     }
 
     private Intent getCameraIntent() {
@@ -374,30 +364,12 @@ public class HomePage1 extends HomeView {
                                 .show();
                     }
                 });
-
-        // Removed: setupButton(BPrefs.CUSTOM_APPS_KEY, bt_apps, v -> {
-        // if (!homeScreen.finishedUpdatingApps)
-        // homeScreen.launchAppsActivity = true;
-        // else
-        // homeScreen.startActivity(new Intent(HomePage1.this.homeScreen, AppsActivity.class));
-        // });
     }
 
     private void setupButton(
             String bPrefsKey, FirstPageAppIcon bt, View.OnClickListener onClickListener) {
         final App app;
-        boolean phone = false;
-        if (bt == bt_whatsapp && false && !sharedPreferences.contains(bPrefsKey)) {
-            app =
-                    AppsDatabase.getInstance(homeScreen)
-                            .appsDatabaseDao()
-                            .findByFlattenComponentName(
-                                    baldComponentNameBeginning
-                                            + Page1EditorActivity.class.getName());
-        } else if (bt == bt_recent && false && !sharedPreferences.contains(bPrefsKey)) {
-            app = null;
-            phone = true;
-        } else if (sharedPreferences.contains(bPrefsKey)) {
+        if (sharedPreferences.contains(bPrefsKey)) {
             app =
                     AppsDatabase.getInstance(homeScreen)
                             .appsDatabaseDao()
@@ -406,24 +378,9 @@ public class HomePage1 extends HomeView {
             if (app == null) sharedPreferences.edit().remove(bPrefsKey).apply();
         } else app = null;
 
-        // The rest of the setupButton logic might need further adjustments if bt_reminders or
-        // bt_apps
-        // had specific behaviors within the `else if` or `else` blocks of this method,
-        // especially in the `if (homeScreen != null)` vs `else (Page1EditorActivity)` sections.
-        // For now, I've only removed the direct references.
-        // If these buttons had unique logic in `setupButton` beyond setting a simple click
-        // listener,
-        // that logic would also need to be moved or adapted in HomePage2.java or where appropriate.
-
         if (homeScreen != null) {
             if (app == null) {
-                if (phone) { // This part remains for bt_recent
-                    bt.setOnClickListener(v -> activity.startActivity(S.getPhoneIntent(activity)));
-                    bt.setText(R.string.phone);
-                    bt.setImageResource(R.drawable.phone_on_button);
-                } else {
-                    bt.setOnClickListener(onClickListener);
-                }
+                bt.setOnClickListener(onClickListener);
             } else {
                 bt.setText(app.getLabel());
                 AppsDatabaseHelper.loadPic(app, bt.imageView);
@@ -439,20 +396,7 @@ public class HomePage1 extends HomeView {
             final Page1EditorActivity page1EditorActivity = (Page1EditorActivity) activity;
             final CharSequence initialAppName;
 
-            // The following logic specific to bt_whatsapp or bt_recent in Page1EditorActivity
-            // remains.
-            // If bt_reminders or bt_apps had special handling here, it's now removed.
-            if (BuildConfig.FLAVOR.equals("gPlay")) {
-                if (bt == bt_whatsapp) {
-                    initialAppName = activity.getString(R.string.edit_home_screen);
-                } else if (bt == bt_recent) {
-                    initialAppName = activity.getString(R.string.phone);
-                } else {
-                    initialAppName = bt.getText();
-                }
-            } else {
-                initialAppName = bt.getText();
-            }
+            initialAppName = bt.getText();
 
             final BDB bdb =
                     BDB.from(activity)
@@ -492,10 +436,6 @@ public class HomePage1 extends HomeView {
                 bt.setText(app.getLabel());
                 AppsDatabaseHelper.loadPic(app, bt.imageView);
                 viewsToApps.put(app, bt);
-            }
-            if (phone) { // This part remains for bt_recent
-                bt.setText(R.string.phone);
-                bt.setImageResource(R.drawable.phone_on_button);
             }
         }
     }

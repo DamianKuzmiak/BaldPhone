@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notifications_area"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:importantForAccessibility="no">
+
+    <TextClock
+        android:id="@+id/clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:format12Hour="h:mm a"
+        android:format24Hour="HH:mm"
+        android:textColor="?bald_text_on_background"
+        android:textSize="72sp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="40sp"
+        android:autoSizeMaxTextSize="72sp"
+        android:autoSizeStepGranularity="2sp" />
+
+    <TextClock
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:format12Hour="EEEE, dd MMM"
+        android:format24Hour="EEEE, dd MMM"
+        android:textColor="?bald_text_on_button"
+        android:textSize="20sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeStepGranularity="1sp" />
+</LinearLayout>

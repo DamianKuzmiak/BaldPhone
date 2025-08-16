@@ -19,19 +19,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.bald.uriah.baldphone.views.BaldImageButton
-        android:id="@+id/sos"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/style_for_buttons_transparent"
-        android:padding="10dp"
-        android:src="@drawable/emergency"
-        app:layout_constraintBottom_toTopOf="@id/battery"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.bald.uriah.baldphone.views.BatteryView
         android:id="@+id/battery"
         android:layout_width="0dp"
@@ -43,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sos" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.bald.uriah.baldphone.views.BaldImageButton
         android:id="@+id/flash"

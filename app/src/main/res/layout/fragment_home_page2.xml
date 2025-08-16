@@ -19,6 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:paddingTop="10dp"
     android:paddingLeft="@dimen/home_screen_padding"
     android:paddingRight="@dimen/home_screen_padding">
 
@@ -70,10 +71,10 @@
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:background="@drawable/style_for_buttons"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_internet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,12 +83,12 @@
                 android:scaleType="fitCenter"
                 android:padding="8dp"
                 android:layout_marginBottom="4dp"
-                android:src="@drawable/web_on_button" />
+                app:srcCompat="@drawable/web_on_button" />
 
             <TextView
                 android:id="@+id/tv_internet"
                 style="@style/ButtonsText.Large"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/internet"
@@ -108,7 +109,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_maps"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxWidth="64dp"
                 android:maxHeight="64dp"
@@ -166,7 +167,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginStart="5dp">
+        android:layout_marginStart="10dp">
 
         <com.bald.uriah.baldphone.views.BaldLinearLayoutButton
             android:id="@+id/bt_apps"
@@ -215,7 +216,7 @@
 
             <ImageView
                 android:id="@+id/iv_new_2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxWidth="64dp"
                 android:maxHeight="64dp"
