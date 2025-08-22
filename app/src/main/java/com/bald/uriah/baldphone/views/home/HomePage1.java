@@ -56,9 +56,8 @@ import com.bald.uriah.baldphone.activities.DialerActivity;
 import com.bald.uriah.baldphone.activities.HomeScreenActivity;
 import com.bald.uriah.baldphone.activities.Page1EditorActivity;
 import com.bald.uriah.baldphone.activities.RecentActivity;
+import com.bald.uriah.baldphone.activities.SOSActivity;
 import com.bald.uriah.baldphone.activities.contacts.ContactsActivity;
-import com.bald.uriah.baldphone.activities.media.PhotosActivity;
-import com.bald.uriah.baldphone.activities.media.VideosActivity;
 import com.bald.uriah.baldphone.databases.apps.App;
 import com.bald.uriah.baldphone.databases.apps.AppsDatabase;
 import com.bald.uriah.baldphone.databases.apps.AppsDatabaseHelper;
@@ -85,15 +84,15 @@ public class HomePage1 extends HomeView {
             new ComponentName(WHATSAPP_PACKAGE_NAME, D.WHATSAPP_LAUNCH_ACTIVITY);
     public Map<App, FirstPageAppIcon> viewsToApps;
     private View view;
-    private FirstPageAppIcon bt_recent,
-            bt_dialer,
-            bt_contacts,
-            bt_whatsapp,
-            bt_assistant,
-            bt_messages,
-            bt_photos,
+    private FirstPageAppIcon bt_assistant,
             bt_camera,
-            bt_lock_screen;
+            bt_contacts,
+            bt_dialer,
+            bt_emergency,
+            bt_lock_screen,
+            bt_messages,
+            bt_recent,
+            bt_whatsapp;
     private boolean registered = false;
     private SharedPreferences sharedPreferences;
 
@@ -224,10 +223,10 @@ public class HomePage1 extends HomeView {
         bt_camera = view.findViewById(R.id.bt_camera);
         bt_contacts = view.findViewById(R.id.bt_contacts);
         bt_dialer = view.findViewById(R.id.bt_dialer);
-        bt_messages = view.findViewById(R.id.bt_messages);
-        bt_photos = view.findViewById(R.id.bt_photos);
-        bt_recent = view.findViewById(R.id.bt_recent);
+        bt_emergency = view.findViewById(R.id.bt_emergency);
         bt_lock_screen = view.findViewById(R.id.bt_lock_screen);
+        bt_messages = view.findViewById(R.id.bt_messages);
+        bt_recent = view.findViewById(R.id.bt_recent);
         bt_whatsapp = view.findViewById(R.id.bt_whatsapp);
     }
 
@@ -334,9 +333,9 @@ public class HomePage1 extends HomeView {
                     }
                 });
         setupButton(
-                BPrefs.CUSTOM_PHOTOS_KEY,
-                bt_photos,
-                v -> homeScreen.startActivity(new Intent(homeScreen, PhotosActivity.class)));
+                BPrefs.CUSTOM_EMERGENCY_KEY,
+                bt_emergency,
+                v -> homeScreen.startActivity(new Intent(homeScreen, SOSActivity.class)));
         setupButton(
                 BPrefs.CUSTOM_CAMERA_KEY,
                 bt_camera,

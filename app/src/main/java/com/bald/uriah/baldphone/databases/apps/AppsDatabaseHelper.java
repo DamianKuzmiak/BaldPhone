@@ -33,6 +33,7 @@ import com.bald.uriah.baldphone.activities.AppsActivity;
 import com.bald.uriah.baldphone.activities.DialerActivity;
 import com.bald.uriah.baldphone.activities.Page1EditorActivity;
 import com.bald.uriah.baldphone.activities.RecentActivity;
+import com.bald.uriah.baldphone.activities.SOSActivity;
 import com.bald.uriah.baldphone.activities.alarms.AlarmsActivity;
 import com.bald.uriah.baldphone.activities.contacts.ContactsActivity;
 import com.bald.uriah.baldphone.activities.media.PhotosActivity;
@@ -53,7 +54,7 @@ public class AppsDatabaseHelper {
     private static final String TAG = AppsDatabaseHelper.class.getSimpleName();
 
     public static final String baldComponentNameBeginning = BuildConfig.APPLICATION_ID + "/";
-    public static Map<String, Integer> baldComponentNames = new HashMap<>(9);
+    public static Map<String, Integer> baldComponentNames = new HashMap<>(10);
 
     static {
         if (!BuildConfig.FLAVOR.equals("gPlay"))
@@ -66,6 +67,7 @@ public class AppsDatabaseHelper {
         baldComponentNames.put(baldComponentNameBeginning + AppsActivity.class.getName(), R.drawable.apps_on_background);
         baldComponentNames.put(baldComponentNameBeginning + AlarmsActivity.class.getName(), R.drawable.clock_on_background);
         baldComponentNames.put(baldComponentNameBeginning + Page1EditorActivity.class.getName(), R.drawable.edit_on_background);
+        baldComponentNames.put(baldComponentNameBeginning + SOSActivity.class.getName(), R.drawable.emergency);
     }
 
     private static List<String> getInstalledAppsFlattenComponentNames(Context context) {

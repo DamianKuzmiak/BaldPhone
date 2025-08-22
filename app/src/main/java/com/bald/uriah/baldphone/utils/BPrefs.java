@@ -39,9 +39,9 @@ public final class BPrefs {
     public static final String CUSTOM_CONTACTS_KEY = "CUSTOM_CONTACTS_KEY";
     public static final String CUSTOM_ASSISTANT_KEY = "CUSTOM_ASSISTANT_KEY";
     public static final String CUSTOM_MESSAGES_KEY = "CUSTOM_MESSAGES_KEY";
-    public static final String CUSTOM_PHOTOS_KEY = "CUSTOM_PHOTOS_KEY";
+    public static final String CUSTOM_EMERGENCY_KEY = "CUSTOM_EMERGENCY_KEY";
     public static final String CUSTOM_CAMERA_KEY = "CUSTOM_CAMERA_KEY";
-    public static final String CUSTOM_VIDEOS_KEY = "CUSTOM_VIDEOS_KEY";
+    public static final String CUSTOM_VIDEOS_KEY = "CUSTOM_VIDEOS_KEY"; // now Lock Screen
     public static final String CUSTOM_PILLS_KEY = "CUSTOM_PILLS_KEY";
     public static final String CUSTOM_APPS_KEY = "CUSTOM_APPS_KEY";
     public static final String CUSTOM_ALARMS_KEY = "CUSTOM_ALARMS_KEY";

@@ -62,7 +62,7 @@
         </com.bald.uriah.baldphone.views.BaldLinearLayoutButton>
 
         <com.bald.uriah.baldphone.views.BaldLinearLayoutButton
-            android:id="@+id/bt_apps"
+            android:id="@+id/bt_internet"
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -128,7 +128,7 @@
         </com.bald.uriah.baldphone.views.BaldLinearLayoutButton>
 
         <com.bald.uriah.baldphone.views.BaldLinearLayoutButton
-            android:id="@+id/bt_help"
+            android:id="@+id/bt_pills"
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -136,25 +136,25 @@
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:background="@drawable/style_for_buttons"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:maxWidth="64dp"
                 android:maxHeight="64dp"
-                android:scaleType="fitCenter"
                 android:padding="8dp"
-                android:layout_marginBottom="4dp"
-                app:srcCompat="@drawable/help_on_button" />
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/pill" />
 
             <TextView
-                android:id="@+id/tv_help"
+                android:id="@+id/tv_new_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Empty"
+                android:text="@string/pills"
                 android:textColor="?bald_text_on_button"
                 android:textSize="@dimen/huge" />
         </com.bald.uriah.baldphone.views.BaldLinearLayoutButton>
@@ -169,73 +169,7 @@
         android:layout_marginStart="5dp">
 
         <com.bald.uriah.baldphone.views.BaldLinearLayoutButton
-            android:id="@+id/bt_new_1"
-            style="@android:style/Widget.Button"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/style_for_buttons"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_new_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="64dp"
-                android:maxHeight="64dp"
-                android:scaleType="fitCenter"
-                android:padding="8dp"
-                android:layout_marginBottom="4dp"
-                app:srcCompat="@drawable/movie_on_background" />
-
-            <TextView
-                android:id="@+id/tv_new_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/videos"
-                android:textColor="?bald_text_on_button"
-                android:textSize="@dimen/huge" />
-        </com.bald.uriah.baldphone.views.BaldLinearLayoutButton>
-
-        <com.bald.uriah.baldphone.views.BaldLinearLayoutButton
-            android:id="@+id/bt_new_2"
-            style="@android:style/Widget.Button"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/style_for_buttons"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/iv_new_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="64dp"
-                android:maxHeight="64dp"
-                android:scaleType="fitCenter"
-                android:padding="8dp"
-                android:layout_marginBottom="4dp"
-                android:src="@drawable/pill" />
-
-            <TextView
-                android:id="@+id/tv_new_2"
-                style="@style/ButtonsText.Large"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/pills"
-                android:textSize="@dimen/huge" />
-        </com.bald.uriah.baldphone.views.BaldLinearLayoutButton>
-
-        <com.bald.uriah.baldphone.views.BaldLinearLayoutButton
-            android:id="@+id/bt_new_3"
+            android:id="@+id/bt_apps"
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -268,7 +202,73 @@
         </com.bald.uriah.baldphone.views.BaldLinearLayoutButton>
 
         <com.bald.uriah.baldphone.views.BaldLinearLayoutButton
-            android:id="@+id/bt_clock2"
+            android:id="@+id/bt_photo"
+            style="@android:style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/style_for_buttons"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_new_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="64dp"
+                android:maxHeight="64dp"
+                android:scaleType="fitCenter"
+                android:padding="8dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/photo_on_button" />
+
+            <TextView
+                android:id="@+id/tv_help"
+                style="@style/ButtonsText.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/photos"
+                android:textSize="@dimen/huge" />
+        </com.bald.uriah.baldphone.views.BaldLinearLayoutButton>
+
+        <com.bald.uriah.baldphone.views.BaldLinearLayoutButton
+            android:id="@+id/bt_videos"
+            style="@android:style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/style_for_buttons"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_new_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="64dp"
+                android:maxHeight="64dp"
+                android:scaleType="fitCenter"
+                android:padding="8dp"
+                android:layout_marginBottom="4dp"
+                app:srcCompat="@drawable/movie_on_background" />
+
+            <TextView
+                android:id="@+id/tv_new_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/videos"
+                android:textColor="?bald_text_on_button"
+                android:textSize="@dimen/huge" />
+        </com.bald.uriah.baldphone.views.BaldLinearLayoutButton>
+
+        <com.bald.uriah.baldphone.views.BaldLinearLayoutButton
+            android:id="@+id/bt_alarms"
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="0dp"

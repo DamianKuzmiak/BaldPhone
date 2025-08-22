@@ -29,7 +29,7 @@ import static com.bald.uriah.baldphone.utils.BPrefs.CUSTOM_CAMERA_KEY;
 import static com.bald.uriah.baldphone.utils.BPrefs.CUSTOM_CONTACTS_KEY;
 import static com.bald.uriah.baldphone.utils.BPrefs.CUSTOM_DIALER_KEY;
 import static com.bald.uriah.baldphone.utils.BPrefs.CUSTOM_MESSAGES_KEY;
-import static com.bald.uriah.baldphone.utils.BPrefs.CUSTOM_PHOTOS_KEY;
+import static com.bald.uriah.baldphone.utils.BPrefs.CUSTOM_EMERGENCY_KEY;
 import static com.bald.uriah.baldphone.utils.BPrefs.CUSTOM_PILLS_KEY;
 import static com.bald.uriah.baldphone.utils.BPrefs.CUSTOM_RECENTS_KEY;
 import static com.bald.uriah.baldphone.utils.BPrefs.CUSTOM_VIDEOS_KEY;
@@ -115,7 +115,7 @@ public class BaldPrefsUtils {
                 sharedPreferences.getString(CUSTOM_CONTACTS_KEY, null),
                 sharedPreferences.getString(CUSTOM_ASSISTANT_KEY, null),
                 sharedPreferences.getString(CUSTOM_MESSAGES_KEY, null),
-                sharedPreferences.getString(CUSTOM_PHOTOS_KEY, null),
+                sharedPreferences.getString(CUSTOM_EMERGENCY_KEY, null),
                 sharedPreferences.getString(CUSTOM_CAMERA_KEY, null),
                 sharedPreferences.getString(CUSTOM_VIDEOS_KEY, null),
                 sharedPreferences.getString(CUSTOM_PILLS_KEY, null),

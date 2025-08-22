@@ -136,11 +136,11 @@ public class HomeScreenActivity extends BaldActivity {
     private int notificationCount = 0;
     @ColorInt
     private int decorationColorOnBackground;
-    private BaldImageButton notificationsButton, sosButton, soundButton, flashButton;
+    private BaldImageButton notificationsButton, soundButton, flashButton;
     private AudioManager audioManager;
     private BaldHomeWatcher baldHomeWatcher;
     private boolean flashInited;
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
     /**
      * "Shakes" the notifications icon when it has more than {@value NotificationListenerService#NOTIFICATIONS_ALOT}
      */
@@ -226,13 +226,14 @@ public class HomeScreenActivity extends BaldActivity {
             flashInited = true;  // TODO: swtich back to lantern:2.0.0
         }
 
-        if (sharedPreferences.getBoolean(BPrefs.EMERGENCY_BUTTON_VISIBLE_KEY, BPrefs.EMERGENCY_BUTTON_VISIBLE_DEFAULT_VALUE))
-            sosButton.setOnClickListener((v) -> {
-                startActivity(new Intent(this, SOSActivity.class));
+//        if (sharedPreferences.getBoolean(BPrefs.EMERGENCY_BUTTON_VISIBLE_KEY, BPrefs.EMERGENCY_BUTTON_VISIBLE_DEFAULT_VALUE))
+//            sosButton.setOnClickListener((v) -> {
+//                startActivity(new Intent(this, SOSActivity.class));
 //                overridePendingTransition(R.anim.slide_in_down, R.anim.nothing);
-            });
-        else
-            sosButton.setVisibility(View.GONE);
+//            });
+//        else
+//            sosButton.setVisibility(View.GONE);
+
         notificationsButton.setOnClickListener((v) -> {
             startActivity(new Intent(this, NotificationsActivity.class));
 //            overridePendingTransition(R.anim.slide_in_down, R.anim.nothing);
@@ -414,7 +415,7 @@ public class HomeScreenActivity extends BaldActivity {
             top_bar.getChildAt(i).setPadding(tmpPadding, tmpPadding, tmpPadding, tmpPadding);
         }
 
-        sosButton = top_bar.findViewById(R.id.sos);
+//        sosButton = top_bar.findViewById(R.id.sos);
         soundButton = top_bar.findViewById(R.id.sound);
         batteryView = top_bar.findViewById(R.id.battery);
         notificationsButton = top_bar.findViewById(R.id.notifications);

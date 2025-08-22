@@ -37,6 +37,7 @@ import com.bald.uriah.baldphone.activities.AppsActivity;
 import com.bald.uriah.baldphone.activities.HomeScreenActivity;
 import com.bald.uriah.baldphone.activities.SettingsActivity;
 import com.bald.uriah.baldphone.activities.alarms.AlarmsActivity;
+import com.bald.uriah.baldphone.activities.media.PhotosActivity;
 import com.bald.uriah.baldphone.activities.media.VideosActivity;
 import com.bald.uriah.baldphone.activities.pills.PillsActivity;
 import com.bald.uriah.baldphone.utils.BaldToast;
@@ -54,8 +55,8 @@ public class HomePage2 extends HomeView {
     private View view;
     private ImageView iv_internet, iv_maps;
     private TextView tv_internet, tv_maps;
-    private View bt_settings, bt_internet, bt_maps, bt_help;
-    private View bt_new_1, bt_new_2, bt_new_3, bt_clock2; // Added fields
+    private View bt_settings, bt_internet, bt_maps, bt_photo;
+    private View bt_videos, bt_pills, bt_apps, bt_alarms; // Added fields
     private PackageManager packageManager;
 
     public HomePage2(@NonNull HomeScreenActivity homeScreen) {
@@ -72,18 +73,20 @@ public class HomePage2 extends HomeView {
     }
 
     private void attachXml() {
-        bt_settings = view.findViewById(R.id.bt_settings);
-        bt_internet = view.findViewById(R.id.bt_apps);
+        bt_alarms = view.findViewById(R.id.bt_alarms);
+        bt_apps = view.findViewById(R.id.bt_apps);
+        bt_internet = view.findViewById(R.id.bt_internet);
         bt_maps = view.findViewById(R.id.bt_maps);
+        bt_photo = view.findViewById(R.id.bt_photo);
+        bt_pills = view.findViewById(R.id.bt_pills);
+        bt_settings = view.findViewById(R.id.bt_settings);
+        bt_videos = view.findViewById(R.id.bt_videos);
+
         iv_internet = view.findViewById(R.id.iv_internet);
         iv_maps = view.findViewById(R.id.iv_maps);
+
         tv_internet = view.findViewById(R.id.tv_internet);
         tv_maps = view.findViewById(R.id.tv_maps);
-        bt_help = view.findViewById(R.id.bt_help);
-        bt_new_1 = view.findViewById(R.id.bt_new_1);
-        bt_new_2 = view.findViewById(R.id.bt_new_2);
-        bt_new_3 = view.findViewById(R.id.bt_new_3);
-        bt_clock2 = view.findViewById(R.id.bt_clock2);
     }
 
     private void genOnLongClickListeners() {
@@ -94,18 +97,23 @@ public class HomePage2 extends HomeView {
                 Uri.parse("http://www.google.com"), bt_internet, iv_internet, tv_internet);
         clickListenerForAbstractOpener(Uri.parse("geo:0,0"), bt_maps, iv_maps, tv_maps);
 
-        if (bt_new_1 != null) {
-            bt_new_1.setOnClickListener(
+        if (bt_photo != null) {
+            bt_photo.setOnClickListener(
+                    v -> homeScreen.startActivity(new Intent(getContext(), PhotosActivity.class)));
+        }
+
+        if (bt_videos != null) {
+            bt_videos.setOnClickListener(
                     v -> homeScreen.startActivity(new Intent(getContext(), VideosActivity.class)));
         }
 
-        if (bt_new_2 != null) {
-            bt_new_2.setOnClickListener(
+        if (bt_pills != null) {
+            bt_pills.setOnClickListener(
                     v -> homeScreen.startActivity(new Intent(getContext(), PillsActivity.class)));
         }
 
-        if (bt_new_3 != null) {
-            bt_new_3.setOnClickListener(
+        if (bt_apps != null) {
+            bt_apps.setOnClickListener(
                     v -> {
                         if (!homeScreen.finishedUpdatingApps) {
                             homeScreen.launchAppsActivity = true;
@@ -115,8 +123,8 @@ public class HomePage2 extends HomeView {
                     });
         }
 
-        if (bt_clock2 != null) {
-            bt_clock2.setOnClickListener(
+        if (bt_alarms != null) {
+            bt_alarms.setOnClickListener(
                     v -> homeScreen.startActivity(new Intent(homeScreen, AlarmsActivity.class)));
         }
     }
