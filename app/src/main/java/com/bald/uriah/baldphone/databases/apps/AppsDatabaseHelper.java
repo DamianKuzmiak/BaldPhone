@@ -41,8 +41,6 @@ import com.bald.uriah.baldphone.activities.pills.PillsActivity;
 import com.bald.uriah.baldphone.utils.S;
 import com.bumptech.glide.Glide;
 
-import org.acra.ACRA;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -129,9 +127,8 @@ public class AppsDatabaseHelper {
                         app.setIcon(S.bitmapToByteArray(S.getBitmapFromDrawable(drawable)));
 
                 } catch (PackageManager.NameNotFoundException e) {
-                    Log.e(TAG, e.getMessage());
-                    e.printStackTrace();
-                    ACRA.getErrorReporter().handleSilentException(new RuntimeException("cannot happen! new app is not found", e));
+                    Log.e(TAG, "updateDB: cannot happen! new app is not found", e);
+//                    ACRA.getErrorReporter().handleSilentException(new RuntimeException("cannot happen! new app is not found", e));
                 }
 
             }

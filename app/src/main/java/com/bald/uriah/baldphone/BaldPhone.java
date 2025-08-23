@@ -30,12 +30,6 @@ import com.bald.uriah.baldphone.utils.S;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
-import org.acra.ACRA;
-import org.acra.config.CoreConfigurationBuilder;
-import org.acra.config.HttpSenderConfigurationBuilder;
-import org.acra.data.StringFormat;
-import org.acra.sender.HttpSender;
-
 public class BaldPhone extends Application {
     private static final String TAG = BaldPhone.class.getSimpleName();
     // Application class should not have any fields, http://www.developerphil.com/dont-store-data-in-the-application-object/
@@ -62,15 +56,19 @@ public class BaldPhone extends Application {
     @Override
     protected void attachBaseContext(final Context base) {
         super.attachBaseContext(base);
-        final CoreConfigurationBuilder builder =
-                new CoreConfigurationBuilder(this)
-                        .setBuildConfigClass(BuildConfig.class)
-                        .setReportFormat(StringFormat.JSON);
-        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
-                .setUri(getString(R.string.tt_url))
-                .setHttpMethod(HttpSender.Method.POST)
-                .setEnabled(false);
-        ACRA.init(this, builder);
+
+        // TODO: [Error Reporting] Re-evaluate and implement a new error reporting solution.
+        // The previous ACRA implementation was commented out for future replacement.
+        // Investigation options, server endpoint, and configuration.
+//        final CoreConfigurationBuilder builder =
+//                new CoreConfigurationBuilder(this)
+//                        .setBuildConfigClass(BuildConfig.class)
+//                        .setReportFormat(StringFormat.JSON);
+//        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
+//                .setUri(getString(R.string.tt_url))
+//                .setHttpMethod(HttpSender.Method.POST)
+//                .setEnabled(false);
+//        ACRA.init(this, builder);
 
         Thread.setDefaultUncaughtExceptionHandler(
                 new BaldUncaughtExceptionHandler(this, Thread.getDefaultUncaughtExceptionHandler())

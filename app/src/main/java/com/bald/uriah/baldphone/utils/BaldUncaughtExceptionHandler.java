@@ -25,13 +25,12 @@ import android.content.SharedPreferences;
 
 import com.bald.uriah.baldphone.activities.CrashActivity;
 
-import org.acra.ACRA;
-
 public class BaldUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
     private final Context context;
     private final Thread.UncaughtExceptionHandler defaultUEH;
 
-    public BaldUncaughtExceptionHandler(Context context, Thread.UncaughtExceptionHandler defaultUEH) {
+    public BaldUncaughtExceptionHandler(
+            Context context, Thread.UncaughtExceptionHandler defaultUEH) {
         this.context = context;
         this.defaultUEH = defaultUEH;
     }
@@ -41,27 +40,33 @@ public class BaldUncaughtExceptionHandler implements Thread.UncaughtExceptionHan
     public void uncaughtException(final Thread t, final Throwable e) {
         final SharedPreferences baldPrefs = BPrefs.get(context);
         final long currentTime = System.currentTimeMillis();
-        if (currentTime - baldPrefs.getLong(BPrefs.LAST_CRASH_KEY, -1) < BPrefs.LAST_CRASH_TIME_OK) {
+        if (currentTime - baldPrefs.getLong(BPrefs.LAST_CRASH_KEY, -1)
+                < BPrefs.LAST_CRASH_TIME_OK) {
             defaultUEH.uncaughtException(t, e);
             return;
         }
-        baldPrefs.edit().putLong(BPrefs.LAST_CRASH_KEY, currentTime).commit(); // commit and not apply because of System.exit(2)
+        baldPrefs
+                .edit()
+                .putLong(BPrefs.LAST_CRASH_KEY, currentTime)
+                .commit(); // commit and not apply because of System.exit(2)
         S.logImportant("BaldPhone CRASHED!");
-        if (baldPrefs.getBoolean(BPrefs.CRASH_REPORTS_KEY, BPrefs.CRASH_REPORTS_DEFAULT_VALUE))
-            ACRA.getErrorReporter().handleException(e);
+//        if (baldPrefs.getBoolean(BPrefs.CRASH_REPORTS_KEY, BPrefs.CRASH_REPORTS_DEFAULT_VALUE))
+            // placeholder for future error reporting
+            // ACRA.getErrorReporter().handleException(e);
 
         final PendingIntent pendingIntent =
                 PendingIntent.getActivity(
                         context,
                         19337,
                         new Intent(context, CrashActivity.class)
-                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                        | Intent.FLAG_ACTIVITY_NEW_TASK),
-                        PendingIntent.FLAG_ONE_SHOT
-                );
+                                .addFlags(
+                                        Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                                | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                | Intent.FLAG_ACTIVITY_NEW_TASK),
+                        PendingIntent.FLAG_ONE_SHOT);
 
-        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final AlarmManager alarmManager =
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 300 * D.MILLISECOND, pendingIntent);
 
         Runtime.getRuntime().exit(2);

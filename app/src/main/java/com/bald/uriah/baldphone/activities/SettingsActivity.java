@@ -416,25 +416,31 @@ public class SettingsActivity extends BaldActivity {
                             v -> startActivity(new Intent(this, PermissionActivity.class)),
                             R.drawable.grant_all_permissions_on_button)
             );
-        mainCategory.add(
-                new BDBSettingsItem(R.string.crash_reports,
-                        BDB.from(this)
-                                .addFlag(BDialog.FLAG_OK | BDialog.FLAG_CANCEL).setTitle(R.string.crash_reports)
-                                .setSubText(R.string.crash_reports_subtext)
-                                .setOptions(R.string.on, R.string.off)
-                                .setPositiveButtonListener(params -> {
-                                    editor.putBoolean(BPrefs.CRASH_REPORTS_KEY, params[0].equals(0)).apply();
-                                    this.recreate();
-                                    return true;
-                                })
-                                .setOptionsStartingIndex(() -> sharedPreferences.getBoolean(BPrefs.CRASH_REPORTS_KEY, BPrefs.CRASH_REPORTS_DEFAULT_VALUE) ? 0 : 1),
-                        R.drawable.upload_on_button));
-        if (BuildConfig.FLAVOR.equals("baldUpdates"))
-            mainCategory.add(
-                    new RunnableSettingsItem(R.string.check_for_updates,
-                            v -> UpdatingUtil.checkForUpdates(this, true),
-                            R.drawable.updates_on_button)
-            );
+
+        // TODO: [Crash Reporting] Restore crash reporting setting.
+        // Temporarily disabled pending implementation of a new logging/error reporting system.
+//        mainCategory.add(
+//                new BDBSettingsItem(R.string.crash_reports,
+//                        BDB.from(this)
+//                                .addFlag(BDialog.FLAG_OK | BDialog.FLAG_CANCEL).setTitle(R.string.crash_reports)
+//                                .setSubText(R.string.crash_reports_subtext)
+//                                .setOptions(R.string.on, R.string.off)
+//                                .setPositiveButtonListener(params -> {
+//                                    editor.putBoolean(BPrefs.CRASH_REPORTS_KEY, params[0].equals(0)).apply();
+//                                    this.recreate();
+//                                    return true;
+//                                })
+//                                .setOptionsStartingIndex(() -> sharedPreferences.getBoolean(BPrefs.CRASH_REPORTS_KEY, BPrefs.CRASH_REPORTS_DEFAULT_VALUE) ? 0 : 1),
+//                        R.drawable.upload_on_button));
+
+        // TODO: [Application Updating]
+        // No longer compatibility with the original update system anyway
+//        if (BuildConfig.FLAVOR.equals("baldUpdates"))
+//            mainCategory.add(
+//                    new RunnableSettingsItem(R.string.check_for_updates,
+//                            v -> UpdatingUtil.checkForUpdates(this, true),
+//                            R.drawable.updates_on_button)
+//            );
     }
 
     /**
