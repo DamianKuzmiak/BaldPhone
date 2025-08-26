@@ -19,6 +19,7 @@ package com.bald.uriah.baldphone.activities.contacts;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.telephony.PhoneNumberUtils;
@@ -26,6 +27,9 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bald.uriah.baldphone.R;
 import com.bald.uriah.baldphone.adapters.ContactRecyclerViewAdapter;
@@ -36,7 +40,6 @@ import com.bald.uriah.baldphone.utils.D;
 import com.bald.uriah.baldphone.utils.S;
 import com.bald.uriah.baldphone.views.BaldSwitch;
 import com.bald.uriah.baldphone.views.ModularRecyclerView;
-import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.Collections;
 import java.util.List;
@@ -90,11 +93,15 @@ public class ShareActivity extends BaseContactsActivity {
         recyclerView.setAdapter(new IntentAdapter(this, resolveInfoList, (resolveInfo, context) -> context.startActivity(shareIntent.setPackage(resolveInfo.activityInfo.packageName))));
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemViewCacheSize(10);//In Order to cover up the shitiness of loading resolve infos icons and texts
-        recyclerView.addItemDecoration(
-                new HorizontalDividerItemDecoration.Builder(this)
-                        .drawable(R.drawable.settings_divider)
-                        .build()
-        );
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this,
+                ((LinearLayoutManager) recyclerView.getLayoutManager()).getOrientation());
+        Drawable dividerDrawable = ContextCompat.getDrawable(this, R.drawable.list_divider);
+        if (dividerDrawable != null) {
+            itemDecoration.setDrawable(dividerDrawable);
+        }
+        recyclerView.addItemDecoration(itemDecoration);
+
         recyclerView.getAdapter().notifyDataSetChanged();
 
         bald_switch.setOnChangeListener(isChecked -> {

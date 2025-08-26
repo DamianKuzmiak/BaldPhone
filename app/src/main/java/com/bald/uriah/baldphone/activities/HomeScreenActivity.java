@@ -229,13 +229,13 @@ public class HomeScreenActivity extends BaldActivity {
         if (sharedPreferences.getBoolean(BPrefs.EMERGENCY_BUTTON_VISIBLE_KEY, BPrefs.EMERGENCY_BUTTON_VISIBLE_DEFAULT_VALUE))
             sosButton.setOnClickListener((v) -> {
                 startActivity(new Intent(this, SOSActivity.class));
-                overridePendingTransition(R.anim.slide_in_down, R.anim.nothing);
+//                overridePendingTransition(R.anim.slide_in_down, R.anim.nothing);
             });
         else
             sosButton.setVisibility(View.GONE);
         notificationsButton.setOnClickListener((v) -> {
             startActivity(new Intent(this, NotificationsActivity.class));
-            overridePendingTransition(R.anim.slide_in_down, R.anim.nothing);
+//            overridePendingTransition(R.anim.slide_in_down, R.anim.nothing);
         });
         soundButton.setOnClickListener(v -> S.showDropDownPopup(this, getWindow().getDecorView().getWidth(), new DropDownRecyclerViewAdapter.DropDownListener() {
             @SuppressLint("InlinedApi")

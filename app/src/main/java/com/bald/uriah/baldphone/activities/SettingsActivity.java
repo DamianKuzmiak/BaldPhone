@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.media.Ringtone;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
@@ -47,6 +48,9 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bald.uriah.baldphone.BuildConfig;
@@ -64,7 +68,6 @@ import com.bald.uriah.baldphone.utils.UpdatingUtil;
 import com.bald.uriah.baldphone.views.BaldTitleBar;
 import com.bald.uriah.baldphone.views.ModularRecyclerView;
 import com.bumptech.glide.Glide;
-import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,11 +128,15 @@ public class SettingsActivity extends BaldActivity {
         final TypedValue typedValue = new TypedValue();
         final Resources.Theme theme = getTheme();
         theme.resolveAttribute(R.attr.bald_stroke_color, typedValue, true);
-        recyclerView.addItemDecoration(
-                new HorizontalDividerItemDecoration.Builder(this)
-                        .drawable(R.drawable.settings_divider)
-                        .build()
-        );
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this,
+                ((LinearLayoutManager) recyclerView.getLayoutManager()).getOrientation());
+        Drawable dividerDrawable = ContextCompat.getDrawable(this, R.drawable.list_divider);
+        if (dividerDrawable != null) {
+            itemDecoration.setDrawable(dividerDrawable);
+        }
+        recyclerView.addItemDecoration(itemDecoration);
+
         populateSettingsList();
         recyclerView.setAdapter(new SettingsRecyclerViewAdapter());
     }

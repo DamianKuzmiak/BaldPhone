@@ -119,7 +119,7 @@ public class NotificationsActivity extends BaldActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.nothing, R.anim.slide_out_up);
+//        overridePendingTransition(R.anim.nothing, R.anim.slide_out_up);
     }
 
     @Override

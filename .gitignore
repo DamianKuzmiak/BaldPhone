@@ -6,6 +6,7 @@ local.properties
 /build/
 /captures/
 .externalNativeBuild/
+/screenshots/
 
 # Specific to this project - keep if needed
 # a.lnk
