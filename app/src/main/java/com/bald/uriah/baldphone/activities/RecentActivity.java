@@ -16,17 +16,22 @@
 
 package com.bald.uriah.baldphone.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bald.uriah.baldphone.R;
 import com.bald.uriah.baldphone.adapters.CallsRecyclerViewAdapter;
 import com.bald.uriah.baldphone.databases.calls.CallLogsHelper;
+import com.bald.uriah.baldphone.services.NotificationListenerService;
 
 public class RecentActivity extends BaldActivity {
+    private static final String TAG = "RecentActivity";
     public RecyclerView recyclerView;
 
     @Override
@@ -44,6 +49,20 @@ public class RecentActivity extends BaldActivity {
         final CallsRecyclerViewAdapter callsRecyclerViewAdapter = new CallsRecyclerViewAdapter(CallLogsHelper.getAllCalls(getContentResolver()), this);
         CallLogsHelper.markAllAsRead(getContentResolver());
         recyclerView.setAdapter(callsRecyclerViewAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.v(TAG, "onStart");
+        // Temporary solution to clear missed calls notification
+        sendClearMissedCallsBroadcast();
+    }
+
+    private void sendClearMissedCallsBroadcast() {
+        Log.i(TAG, "Sending broadcast to clear missed call notifications.");
+        Intent intent = new Intent(NotificationListenerService.ACTION_CLEAR_MISSED_CALLS);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
     @Override

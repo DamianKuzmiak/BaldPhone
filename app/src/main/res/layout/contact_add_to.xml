@@ -27,12 +27,11 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="5dp"
-        android:layout_marginEnd="8dp"
         android:background="@drawable/style_for_buttons"
         app:_src="@drawable/star_on_button"
         app:_text="@string/add_to_favorite"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/home"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home" />
@@ -61,10 +60,10 @@
         android:background="@drawable/style_for_buttons"
         app:_src="@drawable/emergency"
         app:_text="@string/add_to_sos"
-        app:layout_constraintBottom_toBottomOf="@+id/home"
+        app:layout_constraintBottom_toBottomOf="@+id/favorite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/home"
-        app:layout_constraintTop_toTopOf="@+id/home" />
+        app:layout_constraintTop_toTopOf="@+id/favorite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
