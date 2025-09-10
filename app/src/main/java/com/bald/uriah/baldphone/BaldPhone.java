@@ -30,6 +30,8 @@ import com.bald.uriah.baldphone.utils.S;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
+import app.baldphone.neo.helper.VibratorHelper;
+
 public class BaldPhone extends Application {
     private static final String TAG = BaldPhone.class.getSimpleName();
     // Application class should not have any fields, http://www.developerphil.com/dont-store-data-in-the-application-object/
@@ -50,6 +52,7 @@ public class BaldPhone extends Application {
             Log.e(TAG, e.getMessage());
             e.printStackTrace();
         }
+        VibratorHelper.init(this);
         S.sendVersionInfo(this);
     }
 
