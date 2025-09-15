@@ -52,7 +52,6 @@ import com.bald.uriah.baldphone.activities.AppsActivity;
 import com.bald.uriah.baldphone.activities.DialerActivity;
 import com.bald.uriah.baldphone.activities.HomeScreenActivity;
 import com.bald.uriah.baldphone.activities.Page1EditorActivity;
-import com.bald.uriah.baldphone.activities.RecentActivity;
 import com.bald.uriah.baldphone.activities.SOSActivity;
 import com.bald.uriah.baldphone.activities.contacts.ContactsActivity;
 import com.bald.uriah.baldphone.databases.apps.App;
@@ -74,6 +73,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import app.baldphone.neo.calls.recent.RecentCallsActivity;
 
 public class HomePage1 extends HomeView {
     public static final String TAG = HomePage1.class.getSimpleName();
@@ -246,7 +247,7 @@ public class HomePage1 extends HomeView {
         setupButton(
                 BPrefs.CUSTOM_RECENTS_KEY,
                 bt_recent,
-                v -> homeScreen.startActivity(new Intent(homeScreen, RecentActivity.class)));
+                v -> homeScreen.startActivity(new Intent(homeScreen, RecentCallsActivity.class)));
         setupButton(
                 BPrefs.CUSTOM_DIALER_KEY,
                 bt_dialer,
