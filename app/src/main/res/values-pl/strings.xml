@@ -90,6 +90,7 @@
     <string name="connection_settings">Sieci bezprzewodowe</string>
     <string name="contact_must_has_name">Kontakt musi mieć nazwę</string>
     <string name="contact_not_created">Nie udało się utworzyć kontaktu</string>
+    <string name="contact_details">Kontakt</string>
     <string name="contacts">Kontakty</string>
     <string name="contacts_read_subtext">To uprawnienie jest wymagane, aby odczytać kontakty.</string>
     <string name="contacts_subtext">To uprawnienie jest wymagane, aby dodać nowe kontakty.</string>

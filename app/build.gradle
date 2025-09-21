@@ -96,6 +96,7 @@ dependencies {
 
     // Google - Material Design
     implementation 'com.google.android.material:material:1.13.0'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:9.0.16'
 
     // Third-party Libraries
     implementation 'com.android.volley:volley:1.2.1'

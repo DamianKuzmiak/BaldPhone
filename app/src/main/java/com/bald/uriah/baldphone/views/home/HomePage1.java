@@ -21,7 +21,9 @@ import static com.bald.uriah.baldphone.services.NotificationListenerService.KEY_
 import static com.bald.uriah.baldphone.services.NotificationListenerService.NOTIFICATIONS_HOME_SCREEN;
 import static com.bald.uriah.baldphone.utils.AccessibilityUtils.isAccessibilityServiceEnabled;
 import static com.bald.uriah.baldphone.utils.AccessibilityUtils.showAccessibilityServiceDialog;
-import static com.bald.uriah.baldphone.utils.D.WHATSAPP_PACKAGE_NAME;
+
+import static app.baldphone.neo.utils.WhatsappUtils.WHATSAPP_COMPONENT_NAME;
+import static app.baldphone.neo.utils.WhatsappUtils.WHATSAPP_PACKAGE_NAME;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -64,7 +66,6 @@ import com.bald.uriah.baldphone.utils.BDB;
 import com.bald.uriah.baldphone.utils.BDialog;
 import com.bald.uriah.baldphone.utils.BPrefs;
 import com.bald.uriah.baldphone.utils.BaldToast;
-import com.bald.uriah.baldphone.utils.D;
 import com.bald.uriah.baldphone.utils.S;
 import com.bald.uriah.baldphone.views.FirstPageAppIcon;
 
@@ -75,11 +76,10 @@ import java.util.Map;
 import java.util.Set;
 
 import app.baldphone.neo.calls.recent.RecentCallsActivity;
+import app.baldphone.neo.utils.WhatsappUtils;
 
 public class HomePage1 extends HomeView {
     public static final String TAG = HomePage1.class.getSimpleName();
-    private static final ComponentName WHATSAPP_COMPONENT_NAME =
-            new ComponentName(WHATSAPP_PACKAGE_NAME, D.WHATSAPP_LAUNCH_ACTIVITY);
 
     private Map<App, FirstPageAppIcon> viewsToApps;
     private FirstPageAppIcon bt_assistant,
@@ -271,12 +271,7 @@ public class HomePage1 extends HomeView {
                                                     "market://details?id="
                                                             + WHATSAPP_PACKAGE_NAME)));
                         } catch (android.content.ActivityNotFoundException e) {
-                            homeScreen.startActivity(
-                                    new Intent(
-                                            Intent.ACTION_VIEW,
-                                            Uri.parse(
-                                                    "https://play.google.com/store/apps/details?id="
-                                                            + WHATSAPP_PACKAGE_NAME)));
+                            WhatsappUtils.openPlayStoreForWhatsApp(this.getContext());
                         }
                 });
         setupButton(
