@@ -83,29 +83,27 @@ android {
 }
 
 dependencies {
+    // AndroidX - Core & UI
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'androidx.core:core:1.13.1' // 1.31.1 version is max for android-34
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'  // [Long Term] Migrate away from it.
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'  // 1.3.2 version is max for android-34
+
+    // AndroidX - Room (Database)
     implementation 'androidx.room:room-runtime:2.7.2'
-
-    // recyclerview:1.4.0 requires libraries and applications that depend on it to compile against
-    // version 35 or later of the Android APIs. app is currently compiled against android-34.
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
-
     annotationProcessor 'androidx.room:room-compiler:2.7.2'
 
-    implementation 'com.github.bumptech.glide:glide:4.16.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
+    // Google - Material Design
+    implementation 'com.google.android.material:material:1.13.0'
 
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.core:core:1.9.0'
-
-    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'  // [Long Term] Migrate away from it.
-    implementation 'com.google.android.material:material:1.12.0'
-
+    // Third-party Libraries
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'com.github.bumptech.glide:glide:5.0.5'
+    annotationProcessor 'com.github.bumptech.glide:compiler:5.0.5'
+    implementation 'com.github.nisrulz:lantern:1.1.2'  // Version 2.0.0 was unavailable from JitPack
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'net.danlew:android.joda:2.10.6'
-    implementation 'com.github.nisrulz:lantern:1.1.2'  // Version 2.0.0 was unavailable from JitPack
-
-    implementation 'com.android.volley:volley:1.2.1'
 
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 
