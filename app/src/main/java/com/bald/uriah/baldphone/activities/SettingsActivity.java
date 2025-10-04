@@ -53,7 +53,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bald.uriah.baldphone.BuildConfig;
 import com.bald.uriah.baldphone.R;
 import com.bald.uriah.baldphone.activities.alarms.AlarmScreenActivity;
 import com.bald.uriah.baldphone.activities.pills.PillTimeSetterActivity;
@@ -64,7 +63,6 @@ import com.bald.uriah.baldphone.utils.BaldPrefsUtils;
 import com.bald.uriah.baldphone.utils.BaldToast;
 import com.bald.uriah.baldphone.utils.D;
 import com.bald.uriah.baldphone.utils.S;
-import com.bald.uriah.baldphone.utils.UpdatingUtil;
 import com.bald.uriah.baldphone.views.BaldTitleBar;
 import com.bald.uriah.baldphone.views.ModularRecyclerView;
 import com.bumptech.glide.Glide;
@@ -73,6 +71,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Intent.ACTION_VIEW;
+
+import app.baldphone.neo.battery.BatteryDiagActivity;
 
 /**
  * Settings Activity,
@@ -112,8 +112,8 @@ public class SettingsActivity extends BaldActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!checkPermissions(this, requiredPermissions()))
-            return;
+//        if (!checkPermissions(this, requiredPermissions()))
+//            return;
         setContentView(R.layout.activity_settings);
         sharedPreferences = getSharedPreferences(D.BALD_PREFS, MODE_PRIVATE);
         baldPrefsUtils = BaldPrefsUtils.newInstance(this);
@@ -179,6 +179,12 @@ public class SettingsActivity extends BaldActivity {
                 new RunnableSettingsItem(R.string.set_home_screen,
                         v -> FakeLauncherActivity.resetPreferredLauncherAndOpenChooser(this)
                         , R.drawable.home_on_button)
+        );
+
+        mainCategory.add(
+                new RunnableSettingsItem(R.string.low_battery_alert,
+                        v -> startActivity(new Intent(this, BatteryDiagActivity.class))
+                        , R.drawable.battery_empty)
         );
 
         mainCategory.add(new RunnableSettingsItem(R.string.advanced_options, v -> startActivity(new Intent(Settings.ACTION_SETTINGS)), R.drawable.settings_on_button));
