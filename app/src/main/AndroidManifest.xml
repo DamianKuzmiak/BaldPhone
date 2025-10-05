@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright 2019 Uriah Shaul Mandel
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,8 +45,6 @@
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
 
-    <permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
-
     <application
         android:name=".BaldPhone"
         android:allowBackup="true"
@@ -53,16 +52,14 @@
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
-        android:theme="@style/bald_light"
-        tools:ignore="UnusedAttribute">
+        android:theme="@style/bald_light">
 
         <activity
             android:name=".activities.HomeScreenActivity"
-            android:enabled="${fullApp}"
+            android:exported="true"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -71,58 +68,56 @@
         </activity>
         <activity
             android:name=".activities.DialerActivity"
-            android:enabled="${fullApp}"
-            android:label="@string/dialer">
-            <intent-filter>
-                <action android:name="android.intent.action.DIAL" />
-            </intent-filter>
-        </activity>
+            android:exported="false"
+            android:label="@string/dialer" />
         <activity
             android:name=".activities.alarms.AlarmsActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/alarms" />
         <activity
             android:name=".activities.alarms.AlarmScreenActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/alarm"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.alarms.AddAlarmActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/add_alarm"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.contacts.ContactsActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/contacts"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.contacts.SingleContactActivity"
-            android:enabled="${fullApp}" />
+            android:exported="false"
+            android:label="Contact Details" />
         <activity
             android:name=".activities.media.SingleVideoActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/video" />
         <activity
             android:name=".activities.TutorialActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/video_tutorials"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SOSActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/sos" />
         <activity
             android:name=".activities.SettingsActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/settings" />
         <activity
             android:name=".activities.NotificationsActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/notifications" />
         <activity
             android:name=".activities.FakeLauncherActivity"
-            android:enabled="false">
+            android:enabled="false"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -130,18 +125,21 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.PermissionActivity" />
+        <activity
+            android:name=".activities.PermissionActivity"
+            android:exported="false"
+            android:label="Permissions" />
         <activity
             android:name=".activities.RecentActivity"
-            android:enabled="${recentCalls}"
-            android:label="@string/recent"></activity>
+            android:exported="false"
+            android:label="@string/recent" />
         <activity
             android:name=".activities.media.PhotosActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/photos" />
         <activity
             android:name=".activities.media.VideosActivity"
-            android:enabled="${fullApp}"
+            android:exported="true"
             android:label="@string/videos">
             <intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
@@ -151,83 +149,87 @@
         </activity>
         <activity
             android:name=".activities.media.SinglePhotoActivity"
-            android:enabled="${fullApp}" />
+            android:exported="false"
+            android:label="@string/photo" />
         <activity
             android:name=".activities.contacts.AddContactActivity"
-            android:enabled="${fullApp}" />
+            android:exported="false"
+            android:label="@string/add_contact" />
         <activity
             android:name=".activities.alarms.AddTimerActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
+            android:label="@string/timer"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.AppsActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/apps" />
         <activity
             android:name=".activities.pills.PillsActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/pills" />
         <activity
             android:name=".activities.pills.AddPillActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
+            android:label="@string/add_pill"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.pills.PillScreenActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
+            android:label="@string/pills"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FontChangerActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
+            android:label="@string/font_size"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.AccessibilityLevelChangerActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
+            android:label="@string/accessibility_level"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.contacts.ShareActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
+            android:label="@string/share"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.CreditsActivity"
-            android:enabled="${fullApp}" />
+            android:exported="false"
+            android:label="Credits" />
         <activity
             android:name=".activities.CrashActivity"
-            android:label="@string/crash" />
+            android:exported="false"
+            android:label="@string/crash_reports" />
         <activity
             android:name=".activities.KeyboardChangerActivity"
-            android:enabled="${fullApp}" />
+            android:exported="false"
+            android:label="@string/set_keyboard" />
         <activity
             android:name=".activities.pills.PillTimeSetterActivity"
-            android:enabled="${fullApp}" />
-        <activity
-            android:name=".activities.PhoneActivity"
-            android:enabled="${fullApp}"
-            android:label="@string/phone">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:exported="false"
+            android:label="@string/change_pills_time" />
         <activity
             android:name=".activities.TechnicalInfoActivity"
-            android:enabled="${fullApp}"
-            android:screenOrientation="portrait" />
+            android:exported="false"
+            android:label="@string/technical_information" />
         <activity
             android:name=".activities.FeedbackActivity"
-            android:enabled="${fullApp}" />
+            android:exported="false"
+            android:label="@string/feedback" />
         <activity
             android:name=".activities.UpdatesActivity"
-            android:enabled="${fullApp}" />
+            android:exported="false"
+            android:label="@string/check_for_updates" />
         <activity
             android:name=".activities.Page1EditorActivity"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:label="@string/edit_home_screen" />
 
         <service
             android:name=".keyboard.BaldInputMethodService"
-            android:enabled="${fullApp}"
+            android:exported="true"
             android:permission="android.permission.BIND_INPUT_METHOD"
-            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
@@ -238,8 +240,7 @@
         </service>
         <service
             android:name=".services.NotificationListenerService"
-            android:enabled="${fullApp}"
-            android:label="Bald Notification Service"
+            android:exported="false"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
@@ -247,9 +248,9 @@
         </service>
         <service
             android:name=".services.DeviceLockService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="false"
             android:label="@string/accessibility_service_label"
-            android:exported="false">
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
@@ -258,32 +259,31 @@
                 android:resource="@xml/accessibility_service_config" />
         </service>
 
-
         <receiver
             android:name=".broadcast_receivers.BootUpBroadcastReceiver"
-            android:enabled="${fullApp}">
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
             android:name=".broadcast_receivers.LocalChangedReceiver"
-            android:enabled="${fullApp}">
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
             </intent-filter>
         </receiver>
         <receiver
             android:name=".broadcast_receivers.AlarmReceiver"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:process=":remote" />
         <receiver
             android:name=".broadcast_receivers.ReminderReceiver"
-            android:enabled="${fullApp}"
+            android:exported="false"
             android:process=":remote" />
         <receiver
             android:name=".broadcast_receivers.DownloadManagerReceiver"
-            android:enabled="${fullApp}">
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
@@ -292,7 +292,6 @@
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
-            android:enabled="${fullApp}"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
