@@ -5,7 +5,6 @@ import static app.baldphone.neo.utils.SignalUtils.startSignalConversation;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -25,7 +24,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.baldphone.neo.contacts.Contact.TaggedData;
@@ -43,7 +41,6 @@ import com.bald.uriah.baldphone.R;
 import com.bald.uriah.baldphone.activities.BaldActivity;
 import com.bald.uriah.baldphone.activities.DialerActivity;
 import com.bald.uriah.baldphone.activities.contacts.AddContactActivity;
-import com.bald.uriah.baldphone.adapters.CallsRecyclerViewAdapter;
 import com.bald.uriah.baldphone.databases.calls.Call;
 import com.bald.uriah.baldphone.utils.BDB;
 import com.bald.uriah.baldphone.utils.BDialog;
@@ -212,12 +209,7 @@ public class ContactInfoActivity extends BaldActivity {
         RecyclerView recyclerView = view.findViewById(R.id.child);
         BaldPictureTextButton show = view.findViewById(R.id.bt_show);
 
-        DividerItemDecoration divider =
-                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        Drawable d = getDrawable(R.drawable.ll_divider);
-        if (d != null) divider.setDrawable(d);
-        recyclerView.addItemDecoration(divider);
-        recyclerView.setAdapter(new CallsRecyclerViewAdapter(new ArrayList<>(calls), this));
+        recyclerView.setAdapter(new CallLogAdapter(new ArrayList<>(calls)));
 
         Toggeler.newSimpleTextImageToggeler(
                 show,

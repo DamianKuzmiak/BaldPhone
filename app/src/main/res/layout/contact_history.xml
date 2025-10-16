@@ -51,7 +51,7 @@
     <com.bald.uriah.baldphone.views.ScrollingHelper
         android:id="@+id/scrolling_helper"
         android:layout_width="0dp"
-        android:layout_height="360dp"
+        android:layout_height="480dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
