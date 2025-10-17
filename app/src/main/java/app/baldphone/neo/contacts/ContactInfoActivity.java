@@ -47,6 +47,7 @@ import com.bald.uriah.baldphone.adapters.CallsRecyclerViewAdapter;
 import com.bald.uriah.baldphone.databases.calls.Call;
 import com.bald.uriah.baldphone.utils.BDB;
 import com.bald.uriah.baldphone.utils.BDialog;
+import com.bald.uriah.baldphone.utils.BPrefs;
 import com.bald.uriah.baldphone.utils.BaldToast;
 import com.bald.uriah.baldphone.utils.S;
 import com.bald.uriah.baldphone.utils.Toggeler;
@@ -302,6 +303,38 @@ public class ContactInfoActivity extends BaldActivity {
                 .show();
     }
 
+    private void makeCall(@NonNull String number) {
+        boolean needsConfirmation =
+                BPrefs.get(this)
+                        .getBoolean(
+                                BPrefs.CALL_CONFIRMATION_KEY,
+                                BPrefs.CALL_CONFIRMATION_DEFAULT_VALUE);
+        if (!needsConfirmation) {
+            dialNumber(number);
+            return;
+        }
+
+        Contact contact = viewModel != null ? viewModel.contactInfoLiveData().getValue() : null;
+        String message = (contact != null)
+            ? getString(R.string.dialog_call_message_full, contact.getName(), number)
+            : getString(R.string.dialog_call_message_number_only, number);
+
+        BDB.from(this)
+                .setTitle(R.string.dialog_call_title)
+                .setSubText(message)
+                .addFlag(BDialog.FLAG_YES | BDialog.FLAG_NO)
+                .setPositiveButtonListener(
+                        params -> {
+                            dialNumber(number);
+                            return true;
+                        })
+                .show();
+    }
+
+    private void dialNumber(@NonNull String number) {
+        DialerActivity.call(number, this, false);
+    }
+
     /** Handles popup creation logic */
     private static class ActionPopupBuilder {
         static ActionPopup build(Context ctx, boolean isFavorite, boolean isPinned) {
@@ -391,7 +424,9 @@ public class ContactInfoActivity extends BaldActivity {
                                 R.drawable.phone_on_button,
                                 R.color.green,
                                 R.string.call,
-                                v -> DialerActivity.call(value, ContactInfoActivity.this, false))
+                                v -> {
+                                    makeCall(value);
+                                })
                         .add();
             }
         }

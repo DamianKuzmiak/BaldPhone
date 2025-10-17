@@ -153,8 +153,10 @@ public class BDialog extends Dialog {
         attachXml();
         tv_title.setText(title);
         tv_subtext.setText(subText);
-        if (!containFlag(FLAG_NOT_CANCELABLE)) {
-            bt_cancel = (BaldImageButton) LayoutInflater.from(context).inflate(R.layout.bald_dialog_box_close_button, container, false);
+
+        if (containFlag(FLAG_NOT_CANCELABLE)) {
+            setCancelable(false);
+        } else {
             View.OnClickListener cancelClickListener = v -> {
                 if (negative == null)
                     cancel();
@@ -163,11 +165,12 @@ public class BDialog extends Dialog {
                 }
             };
             bt_cancel.setOnClickListener(cancelClickListener);
+            bt_cancel.setVisibility(View.VISIBLE);
+
             if (containFlag(FLAG_CANCEL))
                 bt_negative.setOnClickListener(cancelClickListener);
-            container.addView(bt_cancel);
-        } else
-            setCancelable(false);
+        }
+
         if (containFlag(FLAG_POSITIVE)) {
             if (containFlag(FLAG_INPUT)) {
                 editText = ll.findViewById(R.id.edit_text);
