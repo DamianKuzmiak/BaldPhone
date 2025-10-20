@@ -7,6 +7,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,13 +25,14 @@ public final class Contact {
             ContactsContract.Data.CONTACT_ID
                     + " = ? AND "
                     + ContactsContract.Data.MIMETYPE
-                    + " IN (?, ?, ?, ?, ?)";
+                    + " IN (?, ?, ?, ?, ?, ?)";
 
     private final int id;
     @NonNull private final String lookupKey;
     @NonNull private final String name;
     @Nullable private final String photo;
     private final boolean isStarred;
+    @Nullable private final String note;
     @NonNull private final List<TaggedData> phones;
     @NonNull private final List<TaggedData> emails;
     @NonNull private final List<TaggedData> addresses;
@@ -43,6 +45,7 @@ public final class Contact {
             @NonNull String name,
             @Nullable String photo,
             boolean isStarred,
+            @Nullable String note,
             @NonNull List<TaggedData> phones,
             @NonNull List<TaggedData> emails,
             @NonNull List<TaggedData> addresses,
@@ -54,6 +57,7 @@ public final class Contact {
         this.name = name;
         this.photo = photo;
         this.isStarred = isStarred;
+        this.note = note;
         this.phones = List.copyOf(phones);
         this.emails = List.copyOf(emails);
         this.addresses = List.copyOf(addresses);
@@ -133,6 +137,7 @@ public final class Contact {
         List<TaggedData> addresses = new ArrayList<>();
         Set<String> whatsapp = new HashSet<>();
         Set<String> signal = new HashSet<>();
+        String note = null;
 
         String[] selectionArgs = {
             String.valueOf(id),
@@ -140,7 +145,8 @@ public final class Contact {
             ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE,
             ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE,
             WHATSAPP_PROFILE_MIMETYPE,
-            SIGNAL_CONTACT_MIMETYPE
+            SIGNAL_CONTACT_MIMETYPE,
+            ContactsContract.CommonDataKinds.Note.CONTENT_ITEM_TYPE
         };
 
         try (Cursor data =
@@ -175,6 +181,8 @@ public final class Contact {
                                 addresses.add(new TaggedData(type, value));
                         case WHATSAPP_PROFILE_MIMETYPE -> whatsapp.add(value);
                         case SIGNAL_CONTACT_MIMETYPE -> signal.add(value);
+                        case ContactsContract.CommonDataKinds.Note.CONTENT_ITEM_TYPE ->
+                                note = value;
                         default -> {
                             // Ignore
                         }
@@ -183,12 +191,19 @@ public final class Contact {
             }
         }
 
+        // Workaround for Signal contacts that are "hidden".
+        if (note != null && note.contains("BPNEO_SIGNAL") && !phones.isEmpty()) {
+            String firstPhoneNumber = phones.get(0).value();
+            signal.add(firstPhoneNumber);
+        }
+
         return new Contact(
                 id,
                 lookupKey,
                 name,
                 photo,
                 favorite,
+                note,
                 phones,
                 emails,
                 addresses,
@@ -246,6 +261,10 @@ public final class Contact {
     public boolean hasSignal() {
         return !signalNumbers.isEmpty();
     }
+    
+    public boolean hasNote() {
+        return !TextUtils.isEmpty(note);
+    }
 
     @NonNull
     public List<TaggedData> getPhones() {
@@ -270,6 +289,11 @@ public final class Contact {
     @NonNull
     public List<String> getSignalNumbers() {
         return signalNumbers;
+    }
+    
+    @Nullable
+    public String getNote() {
+        return note;
     }
 
     @Nullable
